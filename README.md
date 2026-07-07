@@ -2,6 +2,8 @@
 
 Static Netlify-ready version of Sofia Lindelow's portfolio.
 
+RELAY demo video: <https://youtu.be/vvf3aMxv6k8>
+
 ## Update flow
 
 1. Edit `index.html`.
