@@ -143,8 +143,8 @@ function ProjectsPanel() {
 function WritingPanel() {
   return (
     <section aria-labelledby="writing-title">
-      <PageHeader index="05" title="Science writing" note="Published by The Tribune" />
-      <h2 id="writing-title" className="sr-only">Selected science writing</h2>
+      <PageHeader index="05" title="Writing" note="Independent and published work" />
+      <h2 id="writing-title" className="sr-only">Selected writing</h2>
       <div className="writing-list">
         {writing.map((piece, index) => (
           <a className="writing-record" href={piece.link} target="_blank" rel="noreferrer" key={piece.title}>

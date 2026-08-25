@@ -152,6 +152,11 @@ export const projects = [
 
 export const writing = [
   {
+    title: 'Sofia Lindelow on Substack',
+    topic: 'Independent writing',
+    link: 'https://substack.com/@sofialindelow',
+  },
+  {
     title: 'Advances and Challenges in Viral Diseases and Their Emerging Therapies',
     topic: 'Virology and emerging therapies',
     link: 'https://www.thetribune.ca/sci-tech/advances-and-challenges-in-viral-diseases-and-their-emerging-therapies-11112025/',
