@@ -68,6 +68,15 @@ export const research = [
     methods: ['EEG spectral features', 'Held-session evaluation', 'Logistic regression', 'Reproducible analysis'],
     link: 'https://github.com/slindelow/neuroai-eeg-memory',
   },
+  {
+    label: 'Independent research project',
+    title: 'Kinase binding-affinity ranking',
+    organization: 'Independent',
+    period: '2026',
+    description: 'Binding-affinity ranking, not protein folding. A protein drug target goes in; the model ranks candidate molecules by predicted binding. Protein sequence features raised rank correlation on unseen kinases. Cold-protein HistGBM, amino-acid composition plus dipeptide vs ligand-only: Spearman difference 0.0500 (95% interval 0.0271 to 0.0720, two-sided p = 0.001). Enrichment at 1% difference 1.7930 (interval -0.2624 to 3.2468, p = 0.091, includes 0). A cold library screen of SLK did not beat ligand-only overall (top 1% 8/17 vs 7/17; top 500 10/17 vs 12/17). DAVIS has only 68 ligands. Scores are public lab labels, not wet-lab hits.',
+    methods: ['HistGBM', 'Amino-acid composition', 'Dipeptide composition', 'Cold-protein holdout'],
+    link: 'https://github.com/slindelow/receptor-protein-classification',
+  },
 ]
 
 export const projects = [
