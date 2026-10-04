@@ -31,22 +31,27 @@ function App() {
   })
 
   useEffect(() => {
-    const nodes = sections
-      .map((section) => document.getElementById(section.id))
-      .filter((node): node is HTMLElement => node !== null)
+    const update = () => {
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      let next: SectionId | '' = ''
+      if (atBottom) {
+        next = 'contact'
+      } else {
+        for (const section of sections) {
+          const node = document.getElementById(section.id)
+          if (node && node.getBoundingClientRect().top <= 160) next = section.id
+        }
+      }
+      setCurrent((previous) => (previous === next ? previous : next))
+    }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting)
-        if (visible.length === 0) return
-        const next = visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (next?.target.id && isSectionId(next.target.id)) setCurrent(next.target.id)
-      },
-      { rootMargin: '-20% 0px -55% 0px', threshold: [0.15, 0.4, 0.7] },
-    )
-
-    nodes.forEach((node) => observer.observe(node))
-    return () => observer.disconnect()
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
   }, [])
 
   return (

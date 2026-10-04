@@ -83,6 +83,10 @@ a {
   min-height: 100vh;
 }
 
+.shell > * {
+  min-width: 0;
+}
+
 .identity {
   position: sticky;
   top: 0;
@@ -121,11 +125,11 @@ a {
 .identity h1 {
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(3.15rem, 4.4vw, 4.7rem);
+  font-size: clamp(3rem, 4vw, 4.25rem);
   font-style: italic;
   font-weight: 500;
   letter-spacing: -0.035em;
-  line-height: 0.84;
+  line-height: 0.86;
 }
 
 .identity h1 span {
@@ -213,6 +217,10 @@ main {
   padding: 3.25rem 3.5rem 0;
 }
 
+main section {
+  scroll-margin-top: 1.25rem;
+}
+
 main h2,
 .feature h3,
 .writing h3,
@@ -229,6 +237,10 @@ main h2,
 #research h2 {
   margin: 0 0 1.5rem;
   font-size: clamp(2.6rem, 5vw, 4rem);
+}
+
+#research h2 {
+  margin-bottom: 0.85rem;
 }
 
 .feature,
@@ -272,7 +284,8 @@ main h2,
 
 .feature-foot {
   display: flex;
-  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
   align-items: end;
   justify-content: space-between;
   margin-top: 1.15rem;
@@ -283,6 +296,8 @@ main h2,
   display: flex;
   flex-wrap: wrap;
   gap: 0.2rem 0;
+  min-width: 0;
+  max-width: 100%;
   color: var(--muted);
   font-size: 0.95rem;
 }
@@ -314,6 +329,7 @@ main h2,
   display: grid;
   grid-template-columns: 11.5rem minmax(0, 1fr);
   gap: 0.5rem 1.5rem;
+  min-width: 0;
   padding-top: 1.35rem;
   margin-top: 1.35rem;
   border-top: 1px solid var(--line);
@@ -328,8 +344,9 @@ main h2,
 
 .repo {
   display: grid;
-  grid-template-columns: minmax(9rem, 15rem) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
   gap: 0.35rem 1.5rem;
+  min-width: 0;
   padding: 0.95rem 0;
   border-top: 1px solid var(--line);
 }
@@ -345,6 +362,7 @@ main h2,
 }
 
 .repo-copy {
+  min-width: 0;
   color: var(--muted);
 }
 
@@ -430,7 +448,7 @@ main h2,
 
 .closing {
   margin: 4.5rem -3.5rem 0;
-  padding: 3.5rem 3.5rem 2.75rem;
+  padding: 3.5rem 3.5rem 3.25rem;
   background: var(--navy);
   color: var(--cream);
 }
@@ -447,8 +465,8 @@ main h2,
 
 .contact-name {
   margin: 0.45rem 0 0;
-  max-width: 11ch;
-  font-size: clamp(2.7rem, 5vw, 4.4rem);
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 4.4vw, 3.8rem);
   text-wrap: balance;
 }
 
@@ -493,6 +511,45 @@ main h2,
   color: var(--link);
 }
 
+@media (max-width: 1180px) {
+  .repo {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 820px) and (min-width: 961px) {
+  .identity {
+    padding-top: 1.15rem;
+    padding-bottom: 1rem;
+  }
+
+  .location {
+    margin-bottom: 0.7rem;
+  }
+
+  .identity h1 {
+    font-size: 3.35rem;
+  }
+
+  .about {
+    margin-top: 1rem;
+  }
+
+  .role {
+    margin-top: 0.75rem;
+  }
+
+  .identity-foot {
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .identity nav a,
+  .identity address a {
+    min-height: 36px;
+  }
+}
+
 @media (max-width: 960px) {
   .shell {
     display: block;
@@ -530,13 +587,13 @@ main h2,
     display: grid;
   }
 
+  .repo {
+    gap: 0.3rem;
+  }
+
   .feature-foot {
     align-items: start;
     justify-content: start;
-  }
-
-  .repo {
-    gap: 0.3rem;
   }
 }
 
