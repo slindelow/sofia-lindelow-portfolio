@@ -1,12 +1,12 @@
-# Sofia Lindelow Portfolio
+# Sofia Lindelow
 
-Sofia Lindelow's public portfolio, built with React, TypeScript, Vite, and Motion.
+Personal site for Sofia Lindelow, built with React, TypeScript, and Vite.
 
 RELAY demo video: <https://youtu.be/vvf3aMxv6k8>
 
 ## Update flow
 
-1. Update the structured content in `src/data.ts` or the page narrative in `src/App.tsx`.
+1. Update the structured content in `src/data.ts` or the page in `src/App.tsx`.
 2. Run `npm run build` and `npm run lint`.
 3. Review the responsive local preview and reduced-motion behavior.
 4. Commit the change to `main` only after Sofia approves the public version.
@@ -20,4 +20,4 @@ RELAY demo video: <https://youtu.be/vvf3aMxv6k8>
 
 ## Public content boundary
 
-Lake House Group may be named on this portfolio. Client identities, internal project names, confidential implementation details, and unsupported outcomes must stay out of the public repository.
+Publish only work, writing, and contact details meant for this site. Client identities, employer names, internal project names, confidential implementation details, and unsupported outcomes stay out of the public repository.

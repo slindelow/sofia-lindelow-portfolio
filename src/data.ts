@@ -1,198 +1,181 @@
-export const experience = [
-  {
-    period: 'Jul 2026 to present',
-    role: 'Forward Deployed AI Engineer',
-    organization: 'Lake House Group',
-    location: 'Montreal, Canada',
-    summary: 'Lead assigned AI work from workflow discovery and technical design through implementation, testing, documentation, demonstrations, and user adoption. Co-lead internal AI enablement through workshops, reusable tools, and deployment guidance.',
-  },
-  {
-    period: 'Apr 2025 to present',
-    role: 'Research Assistant',
-    organization: 'McGill Health Psychology Lab',
-    location: 'Montreal, Canada',
-    summary: 'Develop behavioral study methods and co-lead a JBI-compliant umbrella review on stage-of-change measurement in health interventions.',
-  },
-  {
-    period: 'Sep 2025 to present',
-    role: 'Staff Writer, Science and Technology',
-    organization: 'The Tribune',
-    location: 'Montreal, Canada',
-    summary: 'Interview researchers and report on work across neuroscience, physiology, psychology, and global health for a general readership.',
-  },
-  {
-    period: 'Nov 2025 to Feb 2026',
-    role: 'AI Training Expert',
-    organization: 'AfterQuery',
-    location: 'Remote',
-    summary: 'Produced expert training data and evaluated model rubrics across scientific research, education, and finance.',
-  },
-  {
-    period: 'May to Aug 2025',
-    role: 'Growth and Development Intern',
-    organization: 'BetaTown Venture Studio',
-    location: 'New York, United States',
-    summary: 'Supported product strategy, market research, creator outreach, and operational systems for early-stage AI media ventures.',
-  },
-  {
-    period: 'May to Aug 2024',
-    role: 'Marketing and Strategy Intern',
-    organization: 'Doccla',
-    location: 'London, United Kingdom',
-    summary: 'Supported digital strategy and patient communications for a virtual-ward platform across geriatric care, COPD, and diabetes programs.',
-  },
-  {
-    period: 'Jan to Aug 2023',
-    role: 'Research Intern',
-    organization: 'National Institutes of Health',
-    location: 'Washington, DC',
-    summary: 'Supported clinical research on chronic back pain in active-duty pilots, including participant data collection and consent documentation.',
-  },
-]
+export const profile = {
+  givenName: 'Sofia',
+  familyName: 'Lindelow',
+  fullName: 'Sofia Eva Kuttner Lindelow',
+  location: 'Montreal, Canada',
+  role: 'Forward Deployed Engineer and AI Architect',
+  about:
+    'Currently working in applied AI and technological adoption, passionate about health innovation and neuroscience, and driven to continuously learn and innovate.',
+  contactLine: 'Forward Deployed Engineer and AI Architect based in Montreal.',
+  email: 'sofiaklindelow@gmail.com',
+  cv: '/Sofia_Lindelow_CV.pdf',
+  linkedin: 'https://www.linkedin.com/in/sofia-lindelow/',
+  github: 'https://github.com/slindelow',
+} as const
 
-export const research = [
-  {
-    label: 'Laboratory research',
-    title: 'Health-risk behavior and readiness for change',
-    organization: 'McGill Health Psychology Lab',
-    period: '2025 to present',
-    description: 'Developing a pilot study that uses cursor-tracking methods to assess readiness for health-behavior change. Work includes methodology, questionnaires, experimental protocols, behavioral measurement, and a JBI-compliant umbrella review.',
-    methods: ['Behavioral study design', 'Cursor tracking', 'Evidence synthesis', 'JBI methods'],
-  },
-  {
-    label: 'Independent research project',
-    title: 'NeuroAI: EEG and subsequent memory',
-    organization: 'Independent',
-    period: '2026',
-    description: 'Built a leakage-safe pipeline using real PEERS EEG data to test whether study-period spectral features added held-session predictive information about later recall beyond behavioral predictors. The exploratory result did not show detectable incremental value from the selected EEG representation.',
-    methods: ['EEG spectral features', 'Held-session evaluation', 'Logistic regression', 'Reproducible analysis'],
-    link: 'https://github.com/slindelow/neuroai-eeg-memory',
-  },
-]
+export type Project = {
+  name: string
+  category: string
+  description: string
+  link: string
+  tags: readonly string[]
+}
 
-export const projects = [
+export const featured: readonly Project[] = [
   {
     name: 'RELAY',
     category: 'AI systems',
-    description: 'Slack-native customer-success agent with source retrieval, SLA tracking, evidence-backed drafting, and human approval before posting.',
+    description:
+      'Slack-native customer-success agent with source retrieval, SLA tracking, evidence-backed drafting, and human approval before posting.',
     link: 'https://github.com/slindelow/relay-slack-agent',
     tags: ['Python', 'FastAPI', 'Slack'],
   },
   {
     name: 'HIPAA Guard',
     category: 'Health technology',
-    description: 'Healthcare compliance scanner combining deterministic checks, AI analysis, proposed fixes, adversarial review, verification, and regulatory citations.',
+    description:
+      'Healthcare compliance scanner combining deterministic checks, AI analysis, proposed fixes, adversarial review, verification, and regulatory citations.',
     link: 'https://github.com/slindelow/hipaa-guard',
     tags: ['Python', 'Multi-agent', 'PyPI'],
   },
   {
     name: 'skill-compass',
     category: 'Developer tools',
-    description: 'Capability router that audits installed agent skills and plugins, resolves overlaps, and generates portable routing context across AI coding environments.',
+    description:
+      'Capability router that audits installed agent skills and plugins, resolves overlaps, and generates portable routing context across AI coding environments.',
     link: 'https://github.com/slindelow/skill-compass',
     tags: ['Agent systems', 'Routing', 'Open source'],
   },
+]
+
+export const projectGroups: readonly { category: string; projects: readonly Project[] }[] = [
   {
-    name: 'SafetyNet',
-    category: 'Software safety',
-    description: 'GitLab Duo agent that checks MISRA C deviation records for completeness under ISO 26262 before human safety review.',
-    link: 'https://github.com/slindelow/safetynet-agent',
-    tags: ['GitLab Duo', 'ISO 26262', 'Validation'],
-  },
-  {
-    name: 'Growth Agent',
-    category: 'Applied AI',
-    description: 'Product-led growth pipelines for scoring, outreach, referrals, anomaly detection, and structured reporting.',
-    link: 'https://github.com/slindelow/growth-agent',
-    tags: ['Python', 'Automation', 'Analytics'],
-  },
-  {
-    name: 'Patient Lifecycle Agent',
     category: 'Health technology',
-    description: 'Synthetic-data triage engine that scores risk, routes patients, recommends actions and channels, and flags human escalation.',
-    link: 'https://github.com/slindelow/patient-lifecycle-agent',
-    tags: ['Triage', 'Human escalation', 'Synthetic data'],
+    projects: [
+      {
+        name: 'Patient Lifecycle Agent',
+        category: 'Health technology',
+        description:
+          'Synthetic-data triage engine that scores risk, routes patients, recommends actions and channels, and flags human escalation.',
+        link: 'https://github.com/slindelow/patient-lifecycle-agent',
+        tags: ['Triage', 'Human escalation', 'Synthetic data'],
+      },
+    ],
   },
   {
-    name: 'Market Intelligence Agent',
+    category: 'Software safety',
+    projects: [
+      {
+        name: 'SafetyNet',
+        category: 'Software safety',
+        description:
+          'GitLab Duo agent that checks MISRA C deviation records for completeness under ISO 26262 before human safety review.',
+        link: 'https://github.com/slindelow/safetynet-agent',
+        tags: ['GitLab Duo', 'ISO 26262', 'Validation'],
+      },
+    ],
+  },
+  {
     category: 'Applied AI',
-    description: 'Opportunity-discovery engine that maps markets, identifies urgency signals, profiles organizations, and ranks leads with explicit reasons.',
-    link: 'https://github.com/slindelow/market-intel-agent',
-    tags: ['Research', 'Ranking', 'Reason codes'],
+    projects: [
+      {
+        name: 'Growth Agent',
+        category: 'Applied AI',
+        description:
+          'Product-led growth pipelines for scoring, outreach, referrals, anomaly detection, and structured reporting.',
+        link: 'https://github.com/slindelow/growth-agent',
+        tags: ['Python', 'Automation', 'Analytics'],
+      },
+      {
+        name: 'Market Intelligence Agent',
+        category: 'Applied AI',
+        description:
+          'Opportunity-discovery engine that maps markets, identifies urgency signals, profiles organizations, and ranks leads with explicit reasons.',
+        link: 'https://github.com/slindelow/market-intel-agent',
+        tags: ['Research', 'Ranking', 'Reason codes'],
+      },
+      {
+        name: 'Inbound Leads Agent',
+        category: 'Applied AI',
+        description:
+          'Lead-triage pipeline with inbox scanning, enrichment, SLA scoring, response drafting, prioritized queues, and pre-call briefs.',
+        link: 'https://github.com/slindelow/inbound-leads-agent',
+        tags: ['Triage', 'Enrichment', 'Workflow'],
+      },
+      {
+        name: 'Outbound Leads Agent',
+        category: 'Applied AI',
+        description:
+          'Prospecting workflow for sourcing and enriching leads, bounded personalization, campaign routing, and reply monitoring.',
+        link: 'https://github.com/slindelow/outbound-leads-agent',
+        tags: ['Prospecting', 'Automation', 'Monitoring'],
+      },
+      {
+        name: 'Competitor Analysis Agent',
+        category: 'Applied AI',
+        description: 'Agent for structured competitor and market analysis.',
+        link: 'https://github.com/slindelow/competitor-analysis-agent',
+        tags: ['Research', 'Analysis', 'Agents'],
+      },
+    ],
   },
   {
-    name: 'Inbound Leads Agent',
-    category: 'Applied AI',
-    description: 'Lead-triage pipeline with inbox scanning, enrichment, SLA scoring, response drafting, prioritized queues, and pre-call briefs.',
-    link: 'https://github.com/slindelow/inbound-leads-agent',
-    tags: ['Triage', 'Enrichment', 'Workflow'],
-  },
-  {
-    name: 'Outbound Leads Agent',
-    category: 'Applied AI',
-    description: 'Prospecting workflow for sourcing and enriching leads, bounded personalization, campaign routing, and reply monitoring.',
-    link: 'https://github.com/slindelow/outbound-leads-agent',
-    tags: ['Prospecting', 'Automation', 'Monitoring'],
-  },
-  {
-    name: 'Cart Intent Classifier',
     category: 'Machine learning',
-    description: 'Classifier that routes cart abandoners into intent-based email recovery flows.',
-    link: 'https://github.com/slindelow/cart-intent-classifier',
-    tags: ['Classification', 'Lifecycle', 'Ecommerce'],
-  },
-  {
-    name: 'Competitor Analysis Agent',
-    category: 'Applied AI',
-    description: 'Agent for structured competitor and market analysis.',
-    link: 'https://github.com/slindelow/competitor-analysis-agent',
-    tags: ['Research', 'Analysis', 'Agents'],
+    projects: [
+      {
+        name: 'Cart Intent Classifier',
+        category: 'Machine learning',
+        description: 'Classifier that routes cart abandoners into intent-based email recovery flows.',
+        link: 'https://github.com/slindelow/cart-intent-classifier',
+        tags: ['Classification', 'Lifecycle', 'Ecommerce'],
+      },
+    ],
   },
 ]
 
-export const writing = [
+export const research = {
+  label: 'Independent research project',
+  title: 'NeuroAI: EEG and subsequent memory',
+  organization: 'Independent',
+  period: '2026',
+  description:
+    'Built a leakage-safe pipeline using real PEERS EEG data to test whether study-period spectral features added held-session predictive information about later recall beyond behavioral predictors. The exploratory result did not show detectable incremental value from the selected EEG representation.',
+  methods: ['EEG spectral features', 'Held-session evaluation', 'Logistic regression', 'Reproducible analysis'],
+  link: 'https://github.com/slindelow/neuroai-eeg-memory',
+} as const
+
+export const writing: readonly { title: string; topic: string; outlet: string; link: string }[] = [
   {
     title: 'Sofia Lindelow on Substack',
     topic: 'Independent writing',
+    outlet: 'Substack',
     link: 'https://substack.com/@sofialindelow',
   },
   {
     title: 'Advances and Challenges in Viral Diseases and Their Emerging Therapies',
     topic: 'Virology and emerging therapies',
+    outlet: 'The Tribune',
     link: 'https://www.thetribune.ca/sci-tech/advances-and-challenges-in-viral-diseases-and-their-emerging-therapies-11112025/',
   },
   {
     title: 'Sex-Specific Autonomic Signatures of Tonic Pain',
     topic: 'Pain physiology',
+    outlet: 'The Tribune',
     link: 'https://www.thetribune.ca/sci-tech/sex-specific-autonomic-signatures-of-tonic-pain-04112025/',
   },
   {
     title: 'Designing Culturally Safe Interventions in Obstetrics',
     topic: 'Global health and maternal care',
+    outlet: 'The Tribune',
     link: 'https://www.thetribune.ca/sci-tech/designing-culturally-safe-interventions-in-obstetrics-30092025/',
   },
 ]
 
-export const credentials = [
-  {
-    title: 'Certificate of completion: Claude code 101',
-    issuer: 'Anthropic',
-    issued: 'July 2026',
-    id: '2cqmhwi98e3y',
-    link: 'https://verify.skilljar.com/c/2cqmhwi98e3y',
-  },
-  {
-    title: 'Certificate of completion: AI Fluency for students',
-    issuer: 'Anthropic',
-    issued: 'July 2026',
-    id: '6sist5uhqouv',
-    link: 'https://verify.skilljar.com/c/6sist5uhqouv',
-  },
-  {
-    title: 'Model Context Protocol: Advanced Topics',
-    issuer: 'Anthropic',
-    issued: 'July 2026',
-    id: 'm3orwpue39jw',
-    link: 'https://verify.skilljar.com/c/m3orwpue39jw',
-  },
-]
+export const sections = [
+  { id: 'work', label: 'Work' },
+  { id: 'research', label: 'Research' },
+  { id: 'writing', label: 'Writing' },
+  { id: 'contact', label: 'Contact' },
+] as const
+
+export type SectionId = (typeof sections)[number]['id']
