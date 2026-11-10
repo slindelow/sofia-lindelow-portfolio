@@ -1,337 +1,346 @@
-import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { credentials, experience, projects, research, writing } from './data'
+import { useEffect, useRef, type CSSProperties } from 'react'
+import { contact, earlierProjectsTitle, education, profile, projects, research, sections, work, writing, type Project } from './content'
+import { BackIcon, PlayIcon, RevealFigure, Stack, TextLink, useActiveSection, useReadingFocus } from './components'
+import { navigate, scrollToSection, usePath } from './router'
 
-const tabs = [
-  { id: 'profile', label: 'Profile' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'research', label: 'Research' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'writing', label: 'Writing' },
-  { id: 'education', label: 'Education' },
-  { id: 'contact', label: 'Contact' },
-] as const
+const sectionIds = sections.map((s) => s.id)
+const CV_HREF = '/Sofia_Lindelow_CV.pdf'
 
-type TabId = (typeof tabs)[number]['id']
+const titleName = (slug: string) => ({ viewTransitionName: `title-${slug}` }) as CSSProperties
 
-function isTabId(value: string): value is TabId {
-  return tabs.some((tab) => tab.id === value)
-}
+export default function App() {
+  const path = usePath()
+  const match = path.match(/^\/projects\/([^/]+)\/?$/)
+  const project = match ? projects.find((p) => p.slug === match[1]) : undefined
 
-function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+  useEffect(() => {
+    document.title = project ? `${project.title} · ${profile.name}` : profile.name
+  }, [project])
+
   return (
-    <a className="text-link" href={href} target="_blank" rel="noreferrer">
-      {children}<span aria-hidden="true"> ↗</span>
-    </a>
+    <>
+      <a className="skip" href="#main">Skip to content</a>
+      <ScrollProgress />
+      {project ? <ProjectPage project={project} /> : <Home />}
+    </>
   )
 }
 
-function PageHeader({ index, title, note }: { index: string; title: string; note: string }) {
+function ScrollProgress() {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0
+      if (ref.current) ref.current.style.transform = `scaleX(${p})`
+    }
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update) }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); cancelAnimationFrame(frame) }
+  }, [])
+  return <div className="progress" ref={ref} aria-hidden="true" />
+}
+
+/* ---------------- home ---------------- */
+
+function Home() {
+  const active = useActiveSection(sectionIds, true)
+
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (id) document.getElementById(id)?.scrollIntoView()
+  }, [])
+
   return (
-    <header className="page-head">
-      <div>
-        <p className="page-kicker">File {index}</p>
-        <h1>{title}</h1>
-      </div>
-      <p className="page-note">{note}</p>
+    <div className="home">
+      <SiteBar active={active} />
+      <main id="main" className="column">
+        <Hero />
+        <Work />
+        <Projects />
+        <Research />
+        <Writing />
+        <Education />
+        <Contact />
+      </main>
+      <footer className="column footer">
+        <span>{profile.name}</span>
+        <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>Back to top</a>
+      </footer>
+    </div>
+  )
+}
+
+function SiteBar({ active }: { active: string }) {
+  const index = sections.findIndex((s) => s.id === active)
+  return (
+    <>
+      <a className={`mini-name${active ? ' is-on' : ''}`} href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
+        {profile.name}
+      </a>
+      <nav className="side-index" aria-label="Sections" style={{ ['--i' as string]: Math.max(index, 0) } as CSSProperties}>
+        <span className={`side-marker${index >= 0 ? ' is-on' : ''}`} aria-hidden="true" />
+        <ul>
+          {sections.map((s) => (
+            <li key={s.id}>
+              <a
+                href={`/#${s.id}`}
+                aria-current={active === s.id ? 'true' : undefined}
+                onClick={(e) => { e.preventDefault(); scrollToSection(s.id) }}
+              >
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <nav className="top-index" aria-label="Sections">
+        <ul>
+          {sections.map((s) => (
+            <li key={s.id}>
+              <a href={`/#${s.id}`} aria-current={active === s.id ? 'true' : undefined} onClick={(e) => { e.preventDefault(); scrollToSection(s.id) }}>
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
+  )
+}
+
+function Hero() {
+  return (
+    <header className="hero" id="top">
+      <h1 className="hero-name" aria-label={profile.name}>
+        <span className="line" aria-hidden="true"><span>Sofia</span></span>
+        <span className="line" aria-hidden="true"><span>Lindelow</span></span>
+      </h1>
+      <p className="hero-headline">{profile.headline}</p>
+      <p className="hero-statement">{profile.statement}</p>
+      <p className="hero-degree">{profile.degree}</p>
+      <ul className="hero-links">
+        {contact.map((c) => (
+          <li key={c.label}><TextLink href={c.href}>{c.label}</TextLink></li>
+        ))}
+        <li><TextLink href={CV_HREF}>CV</TextLink></li>
+      </ul>
     </header>
   )
 }
 
-function ProfilePanel({ openTab }: { openTab: (tab: TabId) => void }) {
+function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <section aria-labelledby="profile-title">
-      <PageHeader index="01" title="Sofia Lindelow" note="Montreal, Canada" />
-      <div className="profile-grid">
-        <div>
-          <p className="role-line">Forward Deployed Engineer and AI Architect at Lake House Group</p>
-          <h2 id="profile-title" className="profile-headline">
-            Currently working in applied AI and technological adoption, passionate about health innovation and neuroscience, and driven to continuously learn and innovate.
-          </h2>
-          <div className="profile-actions">
-            <button type="button" onClick={() => openTab('projects')}>View projects</button>
-            <button type="button" onClick={() => openTab('research')}>View research</button>
-            <a href="/Sofia_Lindelow_CV.pdf" target="_blank" rel="noreferrer">Open CV</a>
+    <section id={id} className="section" aria-labelledby={`${id}-title`}>
+      <h2 id={`${id}-title`} className="section-title">{title}</h2>
+      {children}
+    </section>
+  )
+}
+
+function Work() {
+  const ref = useRef<HTMLDivElement>(null)
+  useReadingFocus(ref)
+  return (
+    <Section id="work" title="Work Experience">
+      <div className="focus-list" ref={ref}>
+        {work.map((r) => (
+          <article key={r.title} className="role" data-focus>
+            <h3 className="role-title">{r.title}</h3>
+            <p className="meta">{r.meta}</p>
+            {r.summary && <p className="role-summary">{r.summary}</p>}
+            <ul className="bullets">
+              {r.bullets.map((b) => <li key={b}>{b}</li>)}
+            </ul>
+            {r.stack && <Stack text={r.stack} />}
+            {r.link && <p className="role-link"><TextLink href={r.link.href}>{r.link.label}</TextLink></p>}
+          </article>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+function ProjectVisual({ project, eager = false }: { project: Project; eager?: boolean }) {
+  if (project.video) {
+    return (
+      <a className="video" href={project.video.href} target="_blank" rel="noreferrer" aria-label={`${project.video.alt} on YouTube`}>
+        <RevealFigure src={project.video.thumb} alt="" wide eager={eager} />
+        <span className="video-play"><PlayIcon /></span>
+      </a>
+    )
+  }
+  if (project.figures?.length) return <RevealFigure src={project.figures[0].src} alt={project.figures[0].alt} wide eager={eager} />
+  return null
+}
+
+function Projects() {
+  const ref = useRef<HTMLDivElement>(null)
+  useReadingFocus(ref)
+  const principal = projects.filter((p) => p.principal)
+  const earlier = projects.filter((p) => !p.principal)
+  return (
+    <Section id="projects" title="Personal Projects">
+      <div className="focus-list" ref={ref}>
+        {principal.map((p) => (
+          <article key={p.slug} className="project" data-focus>
+            <h3 className="project-title">
+              <a href={`/projects/${p.slug}`} style={titleName(p.slug)} onClick={(e) => { e.preventDefault(); navigate(`/projects/${p.slug}`) }}>
+                {p.title}
+              </a>
+            </h3>
+            <p className="meta">{p.subtitle}</p>
+            <ProjectVisual project={p} />
+            <p className="project-lead">{p.bullets[0]}</p>
+            <Stack text={p.stack} />
+            <ul className="link-row">
+              <li><TextLink href={`/projects/${p.slug}`}>Read the full project</TextLink></li>
+              {p.links.map((l) => <li key={l.href}><TextLink href={l.href}>{l.label}</TextLink></li>)}
+            </ul>
+          </article>
+        ))}
+        <div className="earlier" data-focus>
+          <h3 className="earlier-title">{earlierProjectsTitle}</h3>
+          <ul className="earlier-list">
+            {earlier.map((p) => (
+              <li key={p.slug}>
+                <a href={`/projects/${p.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/projects/${p.slug}`) }}>
+                  <span className="earlier-name" style={titleName(p.slug)}>{p.title}</span>
+                  <span className="earlier-sub">{p.subtitle}</span>
+                  <svg className="icon earlier-arrow" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6 H9.5 M6.5 3 L9.5 6 L6.5 9" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Section>
+  )
+}
+
+function Research() {
+  const { lab, independent } = research
+  return (
+    <Section id="research" title="Research">
+      <article className="block">
+        <h3 className="block-title">{lab.title}</h3>
+        <p className="meta">{lab.meta}</p>
+        {lab.studies.map((s) => (
+          <div key={s.title} className="study">
+            <h4 className="study-title">{s.title}</h4>
+            <ul className="bullets">{s.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
+            {s.stack && <Stack text={s.stack} />}
           </div>
-        </div>
-        <aside className="index-card" aria-label="Profile summary">
-          <p className="card-label">Current record</p>
-          <dl>
-            <div><dt>Role</dt><dd>Forward Deployed AI Engineer</dd></div>
-            <div><dt>Research</dt><dd>Health psychology and neuroscience</dd></div>
-            <div><dt>Education</dt><dd>McGill BSc, expected 2027</dd></div>
-            <div><dt>Focus</dt><dd>Applied AI and health innovation</dd></div>
-          </dl>
-        </aside>
-      </div>
-    </section>
-  )
-}
-
-function ExperiencePanel() {
-  return (
-    <section aria-labelledby="experience-title">
-      <PageHeader index="02" title="Experience" note="Selected professional record" />
-      <h2 id="experience-title" className="sr-only">Professional experience</h2>
-      <div className="record-list">
-        {experience.map((item) => (
-          <article className="record-row" key={`${item.organization}-${item.role}`}>
-            <p className="record-date">{item.period}</p>
-            <div>
-              <h3>{item.role}</h3>
-              <p className="record-org">{item.organization} · {item.location}</p>
-            </div>
-            <p>{item.summary}</p>
-          </article>
         ))}
-      </div>
-    </section>
-  )
-}
-
-function ResearchPanel() {
-  return (
-    <section aria-labelledby="research-title">
-      <PageHeader index="03" title="Research" note="Laboratory and independent work" />
-      <h2 id="research-title" className="sr-only">Research experience</h2>
-      <div className="research-list">
-        {research.map((item) => (
-          <article className="research-file" key={item.title}>
-            <div className="research-meta">
-              <p className="card-label">{item.label}</p>
-              <p>{item.period}</p>
-            </div>
-            <h3>{item.title}</h3>
-            <p className="record-org">{item.organization}</p>
-            <p>{item.description}</p>
-            <ul className="tag-list" aria-label="Methods">
-              {item.methods.map((method) => <li key={method}>{method}</li>)}
-            </ul>
-            {item.link && <ExternalLink href={item.link}>Repository and report</ExternalLink>}
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function ProjectsPanel() {
-  return (
-    <section aria-labelledby="projects-title">
-      <PageHeader index="04" title="Projects" note={`${projects.length} public repositories`} />
-      <h2 id="projects-title" className="sr-only">Selected projects</h2>
-      <div className="project-grid">
-        {projects.map((project, index) => (
-          <a className="project-file" href={project.link} target="_blank" rel="noreferrer" key={project.name}>
-            <div className="project-file-top">
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <span>{project.category}</span>
-            </div>
-            <h3>{project.name}</h3>
-            <p>{project.description}</p>
-            <ul className="tag-list">
-              {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
-            </ul>
-            <span className="open-record">Open repository <span aria-hidden="true">↗</span></span>
-          </a>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function WritingPanel() {
-  return (
-    <section aria-labelledby="writing-title">
-      <PageHeader index="05" title="Writing" note="Independent and published work" />
-      <h2 id="writing-title" className="sr-only">Selected writing</h2>
-      <div className="writing-list">
-        {writing.map((piece, index) => (
-          <a className="writing-record" href={piece.link} target="_blank" rel="noreferrer" key={piece.title}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <div>
-              <p className="card-label">{piece.topic}</p>
-              <h3>{piece.title}</h3>
-            </div>
-            <span aria-hidden="true">↗</span>
-          </a>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function EducationPanel() {
-  return (
-    <section aria-labelledby="education-title">
-      <PageHeader index="06" title="Education" note="Academic record and credentials" />
-      <h2 id="education-title" className="sr-only">Education and credentials</h2>
-      <div className="education-grid">
-        <article className="education-record">
-          <p className="card-label">Expected 2027 · Montreal, Canada</p>
-          <h3>McGill University</h3>
-          <p>Bachelor of Science, Major in Psychology and Minor in Interdisciplinary Life Sciences</p>
-          <p className="detail">Coursework includes integrative and behavioral neuroscience, cognition, statistics, physiology, programming, global health, and research methods.</p>
-        </article>
-        <article className="education-record">
-          <p className="card-label">2026 · Sydney, Australia</p>
-          <h3>University of New South Wales</h3>
-          <p>Semester abroad</p>
-          <p className="detail">Coursework in cognitive science, social and developmental psychology, creative entrepreneurship, and criminal psychology.</p>
-        </article>
-      </div>
-      <div className="credential-section">
-        <div className="subsection-head">
-          <p className="page-kicker">Verified credentials</p>
-          <p>Issued by Anthropic · July 2026</p>
-        </div>
-        <div className="credential-list">
-          {credentials.map((credential) => (
-            <a className="credential-record" href={credential.link} target="_blank" rel="noreferrer" key={credential.id}>
-              <span className="credential-mark" aria-hidden="true">AI</span>
-              <span>
-                <strong>{credential.title}</strong>
-                <small>{credential.issuer} · Credential ID {credential.id}</small>
-              </span>
-              <span aria-hidden="true">↗</span>
-            </a>
+      </article>
+      <article className="block">
+        <h3 className="block-title">{independent.title}</h3>
+        <ul className="bullets">
+          {independent.items.map((i) => (
+            <li key={i.href}><a className="inline-link" href={i.href} target="_blank" rel="noreferrer">{i.label}</a>. {i.text}</li>
           ))}
-        </div>
-      </div>
-    </section>
+        </ul>
+        <p className="note">{independent.interests}</p>
+      </article>
+    </Section>
   )
 }
 
-function ContactPanel() {
+function Writing() {
   return (
-    <section aria-labelledby="contact-title">
-      <PageHeader index="07" title="Contact" note="Professional links" />
-      <div className="contact-grid">
-        <div>
-          <h2 id="contact-title">Sofia Eva Kuttner Lindelow</h2>
-          <p>Forward Deployed Engineer and AI Architect based in Montreal.</p>
-        </div>
-        <address>
-          <a href="mailto:sofiaklindelow@gmail.com">sofiaklindelow@gmail.com</a>
-          <a href="https://www.linkedin.com/in/sofia-lindelow/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-          <a href="https://github.com/slindelow" target="_blank" rel="noreferrer">GitHub ↗</a>
-          <a href="/Sofia_Lindelow_CV.pdf" target="_blank" rel="noreferrer">Curriculum vitae ↗</a>
-        </address>
-      </div>
-    </section>
+    <Section id="writing" title="Writing">
+      {writing.map((g) => (
+        <article key={g.title} className="block">
+          <h3 className="block-title">{g.title}</h3>
+          <ul className="entries">
+            {g.items.map((i) => (
+              <li key={i.href}>
+                <TextLink href={i.href}>{i.label}</TextLink>
+                {i.date && <span className="entry-date">{i.date}</span>}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </Section>
   )
 }
 
-function App() {
-  const [activeTab, setActiveTab] = useState<TabId>(() => {
-    const hash = window.location.hash.slice(1)
-    return isTabId(hash) ? hash : 'profile'
-  })
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
-  const reduceMotion = useReducedMotion()
+function Education() {
+  return (
+    <Section id="education" title="Education">
+      {education.map((e) => (
+        <article key={e.title} className="block">
+          <h3 className="block-title">{e.title}</h3>
+          <p className="meta">{e.meta}</p>
+          {e.text && <p className="body">{e.text}</p>}
+          {e.links && (
+            <ul className="link-row">
+              {e.links.map((l) => <li key={l.href}><TextLink href={l.href}>{l.label}</TextLink></li>)}
+            </ul>
+          )}
+        </article>
+      ))}
+    </Section>
+  )
+}
 
-  useEffect(() => {
-    const syncFromHash = () => {
-      const hash = window.location.hash.slice(1)
-      if (isTabId(hash)) setActiveTab(hash)
-    }
-    window.addEventListener('hashchange', syncFromHash)
-    return () => window.removeEventListener('hashchange', syncFromHash)
-  }, [])
+function Contact() {
+  return (
+    <Section id="contact" title="Contact">
+      <ul className="contact-list">
+        {contact.map((c) => (
+          <li key={c.label}><TextLink href={c.href}>{c.label}</TextLink></li>
+        ))}
+      </ul>
+    </Section>
+  )
+}
 
-  const openTab = (tab: TabId) => {
-    setActiveTab(tab)
-    window.history.replaceState(null, '', `#${tab}`)
-  }
+/* ---------------- project page ---------------- */
 
-  const handleTabKey = (event: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
-    event.preventDefault()
-    let next = index
-    if (event.key === 'ArrowRight') next = (index + 1) % tabs.length
-    if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length
-    if (event.key === 'Home') next = 0
-    if (event.key === 'End') next = tabs.length - 1
-    openTab(tabs[next].id)
-    tabRefs.current[next]?.focus()
-  }
-
-  const panels: Record<TabId, React.ReactNode> = {
-    profile: <ProfilePanel openTab={openTab} />,
-    experience: <ExperiencePanel />,
-    research: <ResearchPanel />,
-    projects: <ProjectsPanel />,
-    writing: <WritingPanel />,
-    education: <EducationPanel />,
-    contact: <ContactPanel />,
-  }
+function ProjectPage({ project }: { project: Project }) {
+  const index = projects.findIndex((p) => p.slug === project.slug)
+  const next = projects[(index + 1) % projects.length]
+  const extraFigures = project.video ? project.figures ?? [] : (project.figures ?? []).slice(1)
 
   return (
-    <main className="desk">
-      <header className="deskbar">
-        <a href="#profile" className="nameplate" onClick={() => openTab('profile')}>
-          <strong>Sofia Lindelow</strong>
-          <span>Portfolio index · 2026</span>
+    <div className="detail">
+      <header className="detail-bar column">
+        <a className="back" href="/#projects" onClick={(e) => { e.preventDefault(); navigate('/#projects') }}>
+          <BackIcon /> <span>All projects</span>
         </a>
-        <div className="deskbar-actions">
-          <span className="status">Forward Deployed Engineer · AI Architect</span>
-          <a className="cv-link" href="/Sofia_Lindelow_CV.pdf" target="_blank" rel="noreferrer">CV</a>
-        </div>
+        <a className="detail-name" href="/" onClick={(e) => { e.preventDefault(); navigate('/') }}>{profile.name}</a>
       </header>
-
-      <div className="cabinet">
-        <nav className="tabs" role="tablist" aria-label="Portfolio sections">
-          {tabs.map((tab, index) => (
-            <motion.button
-              type="button"
-              role="tab"
-              aria-selected={activeTab === tab.id}
-              aria-controls="portfolio-panel"
-              id={`tab-${tab.id}`}
-              tabIndex={activeTab === tab.id ? 0 : -1}
-              className={`tab tab-${tab.id}`}
-              key={tab.id}
-              ref={(node) => { tabRefs.current[index] = node }}
-              onClick={() => openTab(tab.id)}
-              onKeyDown={(event) => handleTabKey(event, index)}
-              whileHover={reduceMotion ? undefined : { y: -3 }}
-              whileTap={reduceMotion ? undefined : { y: 0 }}
-            >
-              {tab.label}
-            </motion.button>
-          ))}
-        </nav>
-
-        <div className={`folder folder-${activeTab}`}>
-          <div className="folder-crease" aria-hidden="true" />
-          <div
-            className="sheet"
-            id="portfolio-panel"
-            role="tabpanel"
-            aria-labelledby={`tab-${activeTab}`}
-            tabIndex={0}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={activeTab}
-                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
-                transition={{ duration: reduceMotion ? 0 : 0.24, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {panels[activeTab]}
-              </motion.div>
-            </AnimatePresence>
+      <main id="main" className="column detail-main">
+        <h1 className="detail-title" style={titleName(project.slug)}>{project.title}</h1>
+        <p className="detail-sub">{project.subtitle}</p>
+        <div className="detail-visual"><ProjectVisual project={project} eager /></div>
+        <ul className="bullets detail-bullets">
+          {project.bullets.map((b) => <li key={b}>{b}</li>)}
+        </ul>
+        <Stack text={project.stack} />
+        {project.links.length > 0 && (
+          <ul className="link-row">
+            {project.links.map((l) => <li key={l.href}><TextLink href={l.href}>{l.label}</TextLink></li>)}
+          </ul>
+        )}
+        {extraFigures.length > 0 && (
+          <div className="figure-grid">
+            {extraFigures.map((f) => <RevealFigure key={f.src} src={f.src} alt={f.alt} />)}
           </div>
-        </div>
-      </div>
-
-      <footer className="desk-footer">
-        <span>Selected professional, research, and technical work</span>
-        <span>Montreal · 2026</span>
-      </footer>
-    </main>
+        )}
+        <nav className="next" aria-label="Next project">
+          <a href={`/projects/${next.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/projects/${next.slug}`) }}>
+            <span className="next-label">Next project</span>
+            <span className="next-title">{next.title}</span>
+          </a>
+        </nav>
+      </main>
+    </div>
   )
 }
-
-export default App

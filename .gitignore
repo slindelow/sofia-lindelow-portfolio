@@ -6,3 +6,7 @@ dist
 *.tsbuildinfo
 vite.config.js
 vite.config.d.ts
+
+# Local agent settings and Impeccable per-developer config
+.claude/settings.local.json
+.impeccable/config.local.json
