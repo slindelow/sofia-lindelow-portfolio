@@ -1,21 +1,32 @@
 # Sofia Lindelow Portfolio
 
-Sofia Lindelow's public portfolio, built with React, TypeScript, Vite, and Motion.
+Sofia Lindelow's public portfolio: a 1990s desktop on a pixel-art computer. Folder icons open windows for Work, each project, Research, Writing, Education and Contact.
 
 RELAY demo video: <https://youtu.be/vvf3aMxv6k8>
 
+## Layout
+
+Plain static files in `public/`, no build step.
+
+- `public/index.html`: the desktop, windows and routing (`#/work`, `#/relay` and one route per project).
+- `public/shared/content.js`: site copy, word for word from the approved manuscript.
+- `public/shared/kit.js`, `kit.css`: drawn diagrams and shared styles.
+- `public/shared/code.js`: code excerpts, pinned to commits in the public project repositories.
+- `public/shared/films.js`: the RELAY motion graphic.
+- `public/media/`: EEG figures. `public/fonts/`: self-hosted VT323 (SIL Open Font License 1.1).
+- `public/og.png`: link preview image. `public/Sofia_Lindelow_CV.pdf`: public CV.
+
 ## Update flow
 
-1. Update the structured content in `src/data.ts` or the page narrative in `src/App.tsx`.
-2. Run `npm run build` and `npm run lint`.
-3. Review the responsive local preview and reduced-motion behavior.
-4. Commit the change to `main` only after Sofia approves the public version.
-5. Push to GitHub. Netlify deploys automatically from the connected repository.
+1. Edit the files in `public/`.
+2. Preview with `python3 -m http.server 8765 --directory public` and check desktop, phone width and reduced motion.
+3. Commit to a branch and open a pull request for a Netlify deploy preview.
+4. Merge to `main` only after Sofia approves the public version. Netlify deploys `main` automatically.
 
 ## Netlify settings
 
-- Build command: `npm run build`
-- Publish directory: `dist`
+- Build command: none
+- Publish directory: `public`
 - Production branch: `main`
 
 ## Public content boundary
