@@ -1,0 +1,97 @@
+/* Shared diagram styling. Each look sets the --gx-* variables. */
+.gx { margin: 0; display: grid; gap: 8px; }
+.gx-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.gx figcaption, .gx > figcaption, .d-fig figcaption, .stages figcaption {
+  font-family: var(--gx-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--gx-soft);
+}
+.gx-imgwrap { background: #fff; border-radius: 4px; overflow: hidden; line-height: 0; }
+.gx-imgwrap img { width: 100%; height: auto; display: block; }
+
+.gx-t { font-family: var(--gx-mono); font-size: 11px; fill: var(--gx-ink); letter-spacing: .02em; }
+.gx-dim { fill: var(--gx-soft); }
+.gx-mid { text-anchor: middle; font-size: 9.5px; fill: var(--gx-ink); }
+.gx-rowt { font-size: 10px; }
+.gx-fill { fill: var(--gx-line); }
+.gx-ink-fill { fill: var(--gx-ink); }
+.gx-accent-fill { fill: var(--gx-accent); }
+.gx-stroke-soft { fill: none; stroke: var(--gx-line); stroke-width: 1.5; }
+.gx-card { fill: var(--gx-paper); stroke: var(--gx-line); stroke-width: 1; }
+.gx-s { fill: var(--gx-accent); font-weight: 500; opacity: 0; }
+.gx-sfix { fill: var(--gx-accent); font-weight: 500; }
+
+/* Every looped scene runs on one 7s clock */
+.gx-svg * { animation-duration: 7s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(.23,1,.32,1); }
+.gx-s1 { animation-name: gxS1; } .gx-s2 { animation-name: gxS2; } .gx-s3 { animation-name: gxS3; }
+@keyframes gxS1 { 0%, 30% { opacity: 1 } 33%, 97% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes gxS2 { 0%, 31% { opacity: 0 } 34%, 64% { opacity: 1 } 67%, 100% { opacity: 0 } }
+@keyframes gxS3 { 0%, 65% { opacity: 0 } 68%, 96% { opacity: 1 } 99%, 100% { opacity: 0 } }
+
+/* RELAY */
+.gx-qring { fill: none; stroke: var(--gx-accent); stroke-width: 1.5; animation-name: gxQ; }
+@keyframes gxQ { 0% { opacity: 0 } 6%, 60% { opacity: 1 } 70%, 100% { opacity: .0 } }
+.gx-clock { fill: none; stroke: var(--gx-accent); stroke-width: 2; stroke-dasharray: 100; stroke-dashoffset: 100; animation-name: gxClock; animation-timing-function: linear; }
+@keyframes gxClock { 0%, 4% { stroke-dashoffset: 100 } 32%, 92% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 100 } }
+.gx-l { transform-box: fill-box; transform-origin: left center; transform: scaleX(0); }
+.gx-l1 { animation-name: gxL1 } .gx-l2 { animation-name: gxL2 } .gx-l3 { animation-name: gxL3 }
+@keyframes gxL1 { 0%, 34% { transform: scaleX(0) } 42%, 95% { transform: scaleX(1) } 100% { transform: scaleX(0) } }
+@keyframes gxL2 { 0%, 38% { transform: scaleX(0) } 46%, 95% { transform: scaleX(1) } 100% { transform: scaleX(0) } }
+@keyframes gxL3 { 0%, 42% { transform: scaleX(0) } 50%, 95% { transform: scaleX(1) } 100% { transform: scaleX(0) } }
+.gx-chip { opacity: 0; } .gx-c1 { animation-name: gxC1 } .gx-c2 { animation-name: gxC2 }
+@keyframes gxC1 { 0%, 52% { opacity: 0 } 56%, 95% { opacity: 1 } 100% { opacity: 0 } }
+@keyframes gxC2 { 0%, 56% { opacity: 0 } 60%, 95% { opacity: 1 } 100% { opacity: 0 } }
+.gx-btn { fill: var(--gx-paper); stroke: var(--gx-line); stroke-width: 1.2; animation-name: gxBtn; }
+@keyframes gxBtn { 0%, 66% { fill: var(--gx-paper); stroke: var(--gx-line) } 70%, 95% { fill: var(--gx-accent); stroke: var(--gx-accent) } 100% { fill: var(--gx-paper) } }
+.gx-check { fill: none; stroke: var(--gx-paper); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; animation-name: gxCheck; }
+@keyframes gxCheck { 0%, 70% { stroke-dashoffset: 100 } 78%, 95% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 100 } }
+
+/* CGNN */
+.gx-node { fill: var(--gx-paper); stroke: var(--gx-ink); stroke-width: 1.4; }
+.gx-cgnn .gx-node { animation-name: gxNode; animation-delay: calc(var(--i) * 90ms); }
+@keyframes gxNode { 0%, 8% { fill: var(--gx-paper) } 18%, 30% { fill: var(--gx-accent) } 40%, 100% { fill: var(--gx-paper) } }
+.gx-msg { fill: none; stroke: var(--gx-accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 14 86; stroke-dashoffset: 100; opacity: 0; animation-name: gxMsg; animation-delay: calc(var(--i) * 70ms); }
+@keyframes gxMsg { 0% { stroke-dashoffset: 100; opacity: 0 } 4% { opacity: 1 } 28% { stroke-dashoffset: 0; opacity: 1 } 32%, 100% { opacity: 0; stroke-dashoffset: 0 } }
+.gx-pool { fill: var(--gx-line); animation-name: gxPool; }
+@keyframes gxPool { 0%, 34% { fill: var(--gx-line); transform: scale(.6) } 44%, 90% { fill: var(--gx-accent); transform: scale(1) } 100% { fill: var(--gx-line); transform: scale(.6) } }
+.gx-pool { transform-box: fill-box; transform-origin: center; }
+.gx-out { fill: var(--gx-paper); stroke: var(--gx-ink); stroke-width: 1.2; animation-name: gxOut; }
+@keyframes gxOut { 0%, 66% { fill: var(--gx-paper) } 72%, 94% { fill: var(--gx-ink) } 100% { fill: var(--gx-paper) } }
+
+/* Kinase */
+.gx-dot { fill: var(--gx-ink); }
+.gx-g0 { opacity: .22 } .gx-g1 { opacity: .42 } .gx-g2 { opacity: .62 } .gx-g3 { opacity: .85 }
+.gx-hold { fill: none; stroke: var(--gx-accent); stroke-width: 1.5; stroke-dasharray: 4 3; animation-name: gxHold; animation-timing-function: cubic-bezier(.77,0,.175,1); }
+@keyframes gxHold { 0%, 28% { transform: translateX(0) } 34%, 62% { transform: translateX(96px) } 68%, 94% { transform: translateX(212px) } 100% { transform: translateX(0) } }
+
+/* Agents */
+.gx-rowbg { fill: transparent; animation-name: gxRow; animation-delay: calc(var(--i) * 1.2s); }
+@keyframes gxRow { 0% { fill: transparent } 3%, 14% { fill: var(--gx-line) } 20%, 100% { fill: transparent } }
+.gx-agents .gx-rowbg { fill-opacity: .55; }
+.gx-model { animation-name: gxModel; animation-delay: calc(var(--i) * 1.2s); }
+@keyframes gxModel { 0%, 3% { opacity: .35 } 6%, 14% { opacity: 1 } 20%, 100% { opacity: .35 } }
+
+/* FDE */
+.gx-track { fill: none; stroke: var(--gx-accent); stroke-width: 2; stroke-dasharray: 100; stroke-dashoffset: 100; animation-name: gxTrack; animation-timing-function: cubic-bezier(.77,0,.175,1); }
+@keyframes gxTrack { 0%, 6% { stroke-dashoffset: 100 } 70%, 92% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: 100 } }
+.gx-fde .gx-node { animation-name: gxStage; animation-delay: calc(var(--i) * 0.9s); }
+@keyframes gxStage { 0%, 8% { fill: var(--gx-paper) } 12%, 60% { fill: var(--gx-accent); stroke: var(--gx-accent) } 70%, 100% { fill: var(--gx-paper) } }
+
+/* RELAY stage diagram (detail view) */
+.stages { margin: 0; display: grid; gap: 10px; }
+.stages ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 520px) { .stages ol { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.stages li { position: relative; display: grid; align-content: start; gap: 3px; padding: 12px 12px 13px; border: 1px solid var(--gx-line); border-radius: 6px; background: var(--gx-paper);
+ }
+.stages li strong { font-size: 14px; font-weight: 600; color: var(--gx-ink); }
+.stages li span { font-size: 12.5px; color: var(--gx-soft); line-height: 1.35; }
+.stages .st-n { font-family: var(--gx-mono); font-size: 10.5px; letter-spacing: .08em; color: var(--gx-accent) !important; }
+@keyframes stLit { 0% { border-color: var(--gx-line); box-shadow: none } 4%, 14% { border-color: var(--gx-accent); box-shadow: 0 6px 18px -10px var(--gx-accent) } 22%, 100% { border-color: var(--gx-line); box-shadow: none } }
+
+.ext { width: .62em; height: .62em; margin-left: .22em; vertical-align: .05em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gx-svg *, .stages li { animation: none !important; }
+  .gx-s { opacity: 0 } .gx-s1 { opacity: 1 }
+  .gx-l, .gx-chip { transform: none; opacity: 1 }
+  .gx-clock { stroke-dashoffset: 0 }
+  .gx-msg { opacity: 0 }
+}

@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22 shape-rendering=%22crispEdges%22%3E%3Crect width=%2216%22 height=%2216%22 fill=%22%232b261e%22/%3E%3Crect x=%222%22 y=%222%22 width=%2212%22 height=%229%22 fill=%22%2364b3aa%22/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sofia Lindelow</title>
+<link rel="preload" href="/fonts/vt323-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/vt323.css">
+<meta name="description" content="Forward Deployed AI Engineer and psychology student at McGill, building AI applications and conducting research across health psychology, computational neuroscience and molecular modeling.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sofialindelow.netlify.app/">
+<meta property="og:title" content="Sofia Lindelow">
+<meta property="og:description" content="Forward Deployed AI Engineer and psychology student at McGill, building AI applications and conducting research across health psychology, computational neuroscience and molecular modeling.">
+<meta property="og:image" content="https://sofialindelow.netlify.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A beige 1990s computer showing Sofia Lindelow's portfolio desktop">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/shared/kit.css">
+<style>
+:root {
+  --room: #e7e3da; --room-2: #d8d2c5;
+  --beige: #efe3c8; --beige-hi: #faf3e2; --beige-lo: #d8c7a3; --beige-dk: #b9a57e; --line: #2b261e;
+  --teal: #5fa8a0; --teal-dk: #3f857e; --teal-hi: #7cc2b9;
+  --grey: #d9d6ce; --grey-hi: #f5f4f0; --grey-lo: #8e8a80; --ink: #1d1b17; --sel: #233f6b;
+  --pix: 'VT323', ui-monospace, monospace; --sans: Verdana, Geneva, 'DejaVu Sans', sans-serif; --mono: 'VT323', ui-monospace, monospace;
+  --gx-ink: var(--ink); --gx-soft: #5c584f; --gx-line: #cfcbc1; --gx-paper: #ffffff; --gx-accent: #1f6f69; --gx-mono: var(--mono);
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; font: 400 13.5px/1.6 var(--sans); color: var(--ink); background: radial-gradient(1300px 800px at 50% 42%, #f1eee7, var(--room) 60%, var(--room-2)) fixed, var(--room); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: var(--sel); color: #fff; }
+:focus-visible { outline: 2px dotted var(--ink); outline-offset: 2px; }
+a { color: inherit; }
+
+/* ---------- the computer ---------- */
+.rig { position: relative; width: min(1040px, 94vw); margin: 18px auto 28px; }
+.monitor { position: relative; z-index: 2; background: var(--beige); border: 6px solid var(--line); padding: 28px 36px 40px;
+  box-shadow: inset 6px 6px 0 var(--beige-hi), inset -6px -6px 0 var(--beige-lo), 12px 12px 0 rgba(43,38,30,.14); border-radius: 6px; }
+
+.monitor .vents { position: absolute; right: 18px; top: 50%; display: grid; gap: 6px; transform: translateY(-50%); }
+.monitor .vents i { display: block; width: 10px; height: 4px; background: var(--beige-dk); }
+.monitor .badge { position: absolute; left: 40px; bottom: 14px; font: 400 18px/1 var(--pix); letter-spacing: .08em; color: var(--beige-dk); }
+.monitor .led { position: absolute; right: 44px; bottom: 16px; width: 12px; height: 8px; background: #6fbf73; box-shadow: 0 0 6px rgba(111,191,115,.8); }
+.bezel { position: relative; border: 6px solid var(--line); background: #1b1d1c; padding: 12px; border-radius: 22px; box-shadow: inset 0 0 0 4px #2b2f2d, inset 0 8px 18px rgba(0,0,0,.6); }
+.screen { position: relative; overflow: hidden; border-radius: 16px / 22px; height: min(600px, calc(100vh - 350px)); min-height: 420px; background: var(--teal);
+  background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.2px); background-size: 4px 4px; isolation: isolate; container-type: inline-size; }
+/* CRT: scanlines, glass glow, vignette (no flicker) */
+.screen::after { content: ''; position: absolute; inset: 0; z-index: 50; pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgba(0,0,0,.07) 0 1px, transparent 1px 3px), radial-gradient(110% 95% at 50% 45%, transparent 55%, rgba(0,0,0,.38) 100%), radial-gradient(60% 40% at 30% 18%, rgba(255,255,255,.12), transparent 70%); box-shadow: inset 0 0 40px rgba(0,30,25,.35), inset 0 0 4px rgba(0,0,0,.5); border-radius: inherit; }
+.base { position: relative; z-index: 1; width: 86%; margin: -6px auto 0; height: 64px; border-radius: 0 0 6px 6px; background: var(--beige); border: 6px solid var(--line); box-shadow: inset 6px 6px 0 var(--beige-hi), inset -6px -6px 0 var(--beige-lo); }
+.base .slot { position: absolute; left: 7%; top: 20px; width: 30%; height: 10px; background: var(--line); box-shadow: 0 6px 0 var(--beige-lo); }
+.base .power { position: absolute; right: 8%; top: 16px; width: 40px; height: 20px; background: #d2453d; border: 4px solid var(--line); box-shadow: inset 3px 3px 0 #ea7a72; }
+.keyboard { display: block; width: 56%; margin: 14px auto 0; height: auto; image-rendering: pixelated; }
+
+/* ---------- menu bar ---------- */
+.menubar { position: relative; z-index: 30; display: flex; align-items: center; gap: 4px; height: 30px; padding: 0 10px; background: var(--grey-hi); border-bottom: 2px solid var(--ink); font: 400 21px/1 var(--pix); }
+.menubar button { all: unset; cursor: pointer; padding: 3px 9px 2px; }
+.menubar button:hover, .menubar button:focus-visible { background: var(--ink); color: var(--grey-hi); outline: none; }
+.menubar .logo { display: flex; align-items: center; gap: 8px; padding-right: 12px; font-weight: 400; }
+.menubar .logo svg { width: 18px; height: 15px; }
+.menubar .clock { margin-left: auto; padding-right: 4px; white-space: nowrap; }
+
+/* ---------- desktop icons ---------- */
+.icons { position: absolute; z-index: 1; top: 44px; left: 14px; bottom: 14px; display: grid; grid-template-columns: repeat(3, 104px); grid-auto-rows: 96px; gap: 2px 4px; align-content: start; }
+.icon { all: unset; cursor: pointer; display: grid; justify-items: center; align-content: start; gap: 5px; padding-top: 6px; text-align: center; }
+.icon svg { width: 46px; height: auto; image-rendering: pixelated; filter: drop-shadow(2px 2px 0 rgba(0,0,0,.18)); }
+.icon span { max-width: 100px; padding: 1px 5px 0; font: 400 19px/1 var(--pix); color: #fff; background: transparent; text-shadow: 1px 1px 0 rgba(0,0,0,.45); }
+.icon:hover span { background: rgba(0,0,0,.18); }
+.icon.sel svg { filter: brightness(.55) drop-shadow(2px 2px 0 rgba(0,0,0,.18)); }
+.icon.sel span, .icon:focus-visible span { background: var(--sel); color: #fff; text-shadow: none; }
+.icon:focus-visible { outline: none; }
+.icon:active svg { transform: translateY(1px); }
+
+/* ---------- windows ---------- */
+.win { position: absolute; z-index: 10; display: flex; flex-direction: column; min-width: 280px; background: var(--grey); border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(29,27,23,.55); }
+.win.front { z-index: 20; }
+.titlebar { position: relative; flex: none; height: 28px; display: flex; align-items: center; justify-content: center; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+  border-bottom: 2px solid var(--ink); background: var(--grey-hi); }
+.win.front .titlebar { background: repeating-linear-gradient(180deg, var(--grey-hi) 0 2px, var(--ink) 2px 3px) 0 5px / 100% 17px no-repeat, var(--grey-hi); }
+.titlebar:active { cursor: grabbing; }
+.titlebar .t { padding: 0 10px; background: var(--grey-hi); font: 400 20px/1 var(--pix); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; }
+.titlebar .x { all: unset; position: absolute; left: 8px; top: 5px; width: 14px; height: 14px; background: var(--grey-hi); border: 2px solid var(--ink); cursor: pointer; }
+.titlebar .x:hover, .titlebar .x:focus-visible { background: var(--ink); }
+.titlebar .x::after { content: ''; position: absolute; inset: 2px; border: 1px solid transparent; }
+.winbar { flex: none; display: flex; justify-content: space-between; gap: 10px; padding: 4px 10px 3px; border-bottom: 1px solid var(--grey-lo); font: 400 17px/1.1 var(--pix); color: #45423b; background: var(--grey); }
+.winbody { flex: 1; overflow-y: scroll; overflow-x: hidden; background: #fff; margin: 3px; border: 2px solid; border-color: var(--grey-lo) var(--grey-hi) var(--grey-hi) var(--grey-lo); padding: 26px 30px 34px; overscroll-behavior: contain; }
+.winbody::-webkit-scrollbar { width: 16px; height: 16px; }
+.winbody::-webkit-scrollbar-track { background: repeating-conic-gradient(#cfccc4 0 25%, #f1f0ec 0 50%) 0 0 / 4px 4px; border-left: 2px solid var(--ink); }
+.winbody::-webkit-scrollbar-thumb { background: var(--grey); border: 2px solid var(--ink); box-shadow: inset 2px 2px 0 var(--grey-hi), inset -2px -2px 0 var(--grey-lo); }
+.resize { position: absolute; right: 0; bottom: 0; width: 16px; height: 16px; cursor: nwse-resize; touch-action: none;
+  background: linear-gradient(135deg, transparent 50%, var(--ink) 50% 56%, transparent 56% 68%, var(--ink) 68% 74%, transparent 74%); }
+.zoomrect { position: absolute; z-index: 40; border: 2px dotted var(--ink); pointer-events: none; opacity: 0; }
+
+/* ---------- window content ---------- */
+.winbody .d-title, .about h1 { font: 400 clamp(40px, 6cqi, 60px)/.9 var(--pix); letter-spacing: .01em; }
+.winbody .d-sub { margin-top: 8px; font: 400 21px/1.2 var(--mono); color: #45423b; }
+.winbody .d-head { margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+.winbody .d-visual { margin-bottom: 26px; }
+.d-visual-relay { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); gap: 20px; align-items: center; }
+.d-visual > .gx, .d-visual-relay > .gx { border: 2px solid var(--ink); padding: 10px; background: #fff; box-shadow: 3px 3px 0 rgba(29,27,23,.25); max-width: 460px; }
+.stages li { border-radius: 0; border: 2px solid var(--ink); }
+.d-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.d-fig { margin: 0; display: grid; gap: 6px; } .d-fig .gx-imgwrap { border: 2px solid var(--ink); border-radius: 0; }
+.d-bullets { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; max-width: 68ch; }
+.d-bullets li { position: relative; padding-left: 18px; }
+.d-bullets li::before { content: ''; position: absolute; left: 2px; top: .62em; width: 6px; height: 6px; background: var(--ink); }
+.d-tags { margin-top: 12px; font: 400 17px/1.25 var(--mono); color: #4a463f; }
+.d-links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 4px 10px; font-weight: 600; } .d-links .dot { color: #8e8a80; }
+.tl { color: #173b78; text-decoration: underline; text-underline-offset: .15em; } .tl:hover { background: #173b78; color: #fff; text-decoration: none; }
+.d-child { padding: 20px 0; border-top: 1px dashed #8e8a80; } .d-child:first-child { border-top: 0; padding-top: 0; }
+.d-child h3, .w-item h3, .r-lab h3, .r-ind h3, .wr-g h3, .ed h3 { font: 700 15px/1.3 var(--sans); }
+.d-childsub { margin-top: 2px; color: #5c584f; font-size: 14px; }
+.w-item { padding: 20px 0; border-top: 1px dashed #8e8a80; } .w-item:first-child { border-top: 0; padding-top: 0; }
+.w-meta { margin-top: 4px; font: 400 18px/1.2 var(--mono); color: #4a463f; }
+.w-lede { margin-top: 8px; font-size: 16px; }
+.r-study { margin-top: 18px; } .r-study h4 { font: 600 15px/1.3 var(--sans); }
+.r-ind { margin-top: 26px; padding-top: 18px; border-top: 1px dashed #8e8a80; } .r-int { margin-top: 12px; font-style: italic; }
+.wr-g + .wr-g, .ed + .ed { margin-top: 22px; }
+.wr-list { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.wr-list li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 16px; padding-bottom: 8px; border-bottom: 1px dotted #8e8a80; }
+.wr-date { font: 400 17px/1.4 var(--mono); color: #4a463f; }
+.ed p:not(.w-meta) { margin-top: 6px; }
+.contactwin .d-links { font: 400 40px/1.2 var(--pix); gap: 6px 24px; margin: 0; } .contactwin .d-links .dot { display: none; }
+.about .role { margin-top: 10px; font: 400 19px/1.2 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: #1f6f69; }
+.about p.statement { margin-top: 16px; font-size: 15px; line-height: 1.5; max-width: 52ch; }
+.about .edu { margin-top: 10px; font: 400 18px/1.2 var(--mono); color: #4a463f; }
+.about .open { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { all: unset; cursor: pointer; padding: 6px 14px 5px; border: 2px solid var(--ink); border-radius: 8px; background: var(--grey-hi); box-shadow: inset -2px -2px 0 var(--grey-lo), inset 2px 2px 0 #fff; font: 400 19px/1 var(--pix); }
+.btn:hover { background: var(--grey); } .btn:active { box-shadow: inset 2px 2px 0 var(--grey-lo); transform: translateY(1px); }
+.btn.default { outline: 3px solid var(--ink); outline-offset: 1px; }
+
+/* ---------- folder contents, viewers, code ---------- */
+.files { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px 4px; align-content: start; }
+.ficon { all: unset; cursor: pointer; display: grid; justify-items: center; align-content: start; gap: 5px; padding: 8px 2px 4px; text-align: center; }
+.ficon svg { width: 38px; height: auto; image-rendering: pixelated; }
+.ficon span { max-width: 96px; padding: 1px 4px 0; font: 400 18px/1 var(--pix); color: var(--ink); overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.ficon:hover span { background: #e3e1dc; }
+.ficon.sel svg { filter: brightness(.55); }
+.ficon.sel span, .ficon:focus-visible span { background: var(--sel); color: #fff; }
+.ficon:focus-visible { outline: none; }
+.win-folder .winbody { padding: 14px 12px 18px; }
+.viewer { margin: 0; display: grid; gap: 14px; justify-items: center; }
+.viewer > .gx, .viewer > .gx-imgwrap { width: 100%; max-width: 620px; }
+.viewer .stages { width: 100%; }
+.viewer figcaption { font: 400 18px/1.2 var(--pix); color: #4a463f; text-transform: none; letter-spacing: 0; }
+.win-image .winbody { background: #f1f0ec; }
+.win-code .winbody { padding: 0; background: #fff; }
+.codebar { position: sticky; top: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 14px; padding: 6px 12px 5px; background: var(--grey-hi); border-bottom: 1px solid var(--grey-lo); font: 400 17px/1.2 var(--pix); color: #45423b; }
+pre.code { margin: 0; padding: 10px 14px 18px 0; font: 12.5px/1.6 Monaco, 'Courier New', monospace; color: #1d1b17; white-space: pre; overflow-x: auto; tab-size: 4; }
+pre.code .ln { display: inline-block; width: 4.2em; padding-right: 1em; margin-right: .6em; text-align: right; color: #9a968c; border-right: 1px solid #e0ddd6; user-select: none; -webkit-user-select: none; }
+pre.code .cm { color: #6b675e; font-style: italic; }
+pre.code b { color: #173b78; font-weight: 700; }
+.win-overview .winbody { container-type: inline-size; padding: 18px 22px 26px; }
+.win-overview .d-head { margin-bottom: 14px; padding-bottom: 10px; }
+.win-overview .d-title { font-size: 40px !important; line-height: .95 !important; }
+.win-overview .d-sub { margin-top: 4px; font-size: 19px; }
+.win-overview .d-visual { margin-bottom: 18px; }
+.win-overview .player { margin: 0; }
+.ovgrid .d-body > .d-bullets:first-child { margin-top: 0; }
+@container (min-width: 760px) {
+  .ovgrid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+  .ovgrid > .d-visual { margin: 0; position: sticky; top: 0; }
+  .ovgrid .d-visual-relay, .ovgrid .d-figs { grid-template-columns: 1fr; gap: 12px; }
+  .ovgrid .d-visual > .gx { max-width: none; }
+}
+.win-overview .player { border: 2px solid var(--ink); background: var(--grey); }
+.mg { margin: 0; display: grid; gap: 6px; cursor: pointer; }
+.mg .fstage { margin: 0; }
+.mg figcaption { font: 400 17px/1.1 var(--pix); color: #5c584f; }
+.mg.paused figcaption::after { content: ' · paused'; }
+.fr-cursor { position: absolute; left: 0; top: 0; width: 14px; z-index: 6; opacity: 0; pointer-events: none; transform-origin: 0 0; image-rendering: pixelated; }
+.fr-cursor svg { display: block; width: 100%; height: auto; }
+.fr-approve.pressed { box-shadow: inset 2px 2px 0 var(--grey-lo); transform: translateY(1px); }
+.win-overview .fstage { margin: 8px 8px 0; }
+.fstrip { margin-top: 28px; padding-top: 14px; border-top: 2px solid var(--ink); }
+.fstrip h3 { font: 400 20px/1 var(--pix) !important; margin-bottom: 6px; }
+/* ---------- movie player ---------- */
+.win-film .winbody { padding: 0; background: var(--grey); overflow-y: auto; }
+.player { display: grid; gap: 0; }
+.fstage { position: relative; margin: 10px 10px 0; border: 2px solid var(--ink); background: #e7e5df; overflow: hidden; aspect-ratio: 16 / 10; }
+.fstage.narrow { aspect-ratio: auto; min-height: 560px; }
+.fstage.compact { aspect-ratio: 4 / 3.4; }
+.fstage.compact.film-relay { gap: 8px; padding: 26px 8px 8px; font-size: 11px; }
+.fstage.compact .fr-pane header { padding: 5px 7px; font-size: 17px; }
+.fstage.compact .fr-msgs { padding: 7px; gap: 7px; }
+.fstage.compact .fr-sources { padding: 7px; gap: 4px; }
+.fstage.compact .fr-draft { margin: 0 7px 7px; }
+.narr { margin: 0; padding: 8px 12px 6px; min-height: 2.4em; font: 400 19px/1.2 var(--pix); color: var(--ink); }
+.ctrl { display: flex; align-items: center; gap: 10px; padding: 6px 10px 18px; }
+.pp { all: unset; flex: none; cursor: pointer; display: grid; place-items: center; width: 34px; height: 26px; border: 2px solid var(--ink); border-radius: 6px; background: var(--grey-hi); box-shadow: inset -2px -2px 0 var(--grey-lo), inset 2px 2px 0 #fff; }
+.pp:active { box-shadow: inset 2px 2px 0 var(--grey-lo); }
+.pp svg { width: 12px; height: 12px; }
+.scrub { position: relative; flex: 1; height: 26px; }
+.scrub input { -webkit-appearance: none; appearance: none; width: 100%; height: 26px; margin: 0; background: transparent; cursor: pointer; }
+.scrub input::-webkit-slider-runnable-track { height: 8px; border: 2px solid var(--ink); background: repeating-linear-gradient(90deg, #fff 0 3px, #dcd9d1 3px 4px); }
+.scrub input::-moz-range-track { height: 8px; border: 2px solid var(--ink); background: #fff; }
+.scrub input::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 20px; margin-top: -8px; background: var(--grey-hi); border: 2px solid var(--ink); box-shadow: inset -2px -2px 0 var(--grey-lo); }
+.scrub input::-moz-range-thumb { width: 12px; height: 18px; background: var(--grey-hi); border: 2px solid var(--ink); border-radius: 0; }
+.ticks { position: absolute; left: 7px; right: 7px; top: 22px; height: 0; }
+.ticks button { all: unset; position: absolute; top: 0; width: 2px; height: 7px; background: var(--grey-lo); cursor: pointer; transform: translateX(-1px); }
+.ticks button.done { background: var(--ink); }
+.ticks button span { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); font: 400 14px/1 var(--pix); color: #5c584f; white-space: nowrap; opacity: 0; transition: opacity .12s; pointer-events: none; }
+.ticks button:hover span, .ticks button:focus-visible span { opacity: 1; }
+.tc { flex: none; font: 400 19px/1 var(--pix); min-width: 6.4em; text-align: right; }
+
+/* RELAY film */
+.film-relay { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 30px 14px 14px; font: 400 12px/1.45 var(--sans); color: var(--ink); }
+.fstage.narrow.film-relay { grid-template-columns: 1fr; grid-template-rows: auto auto; }
+.fr-tag { position: absolute; top: 7px; left: 14px; font: 400 15px/1 var(--pix); color: #6b675e; }
+.fr-pane { background: #fff; border: 2px solid var(--ink); display: flex; flex-direction: column; min-height: 0; min-width: 0; overflow: hidden; }
+.fr-chan .fr-msgs { flex: 1; min-height: 0; align-content: end; }
+.fr-msg small { white-space: nowrap; }
+.fstage.narrow .fr-pill { display: none; }
+.fstage.narrow .fr-sources { grid-template-columns: 1fr; }
+.fstage.narrow .fr-src { grid-template-columns: auto 1fr; align-items: baseline; gap: 8px; }
+.fstage.narrow .fr-src span { min-width: 0; }
+.fr-pane header { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 10px; border-bottom: 2px solid var(--ink); background: var(--grey-hi); font: 400 19px/1 var(--pix); }
+.fr-pill { font: 400 15px/1 var(--pix); padding: 2px 6px 1px; border: 1px solid var(--ink); }
+.fr-relaystatus { font: 400 16px/1 var(--pix); color: #1f6f69; }
+.fr-msgs { display: grid; gap: 10px; padding: 10px; align-content: start; }
+.fr-msg { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; align-items: start; }
+.fr-msg i { display: block; width: 26px; height: 26px; background: #cfcbc1; }
+.fr-msg i.av { display: grid; place-items: center; font: 400 18px/1 var(--pix); font-style: normal; color: #fff; background: #b4543c; }
+.fr-msg i.av-csm { background: #1f6f69; }
+.fr-msg b { display: block; font-size: 11.5px; } .fr-msg small { font-weight: 400; color: #1f6f69; margin-left: 4px; }
+.fr-msg p { margin: 2px 0 0; }
+.fr-msg.ghost b { width: 30%; height: 7px; background: #dcd9d1; margin-top: 3px; } .fr-msg.ghost em { display: block; width: 80%; height: 7px; margin-top: 6px; background: #ebe9e4; }
+.fr-status { display: flex; align-items: center; gap: 5px; margin-top: 6px; font: 400 15px/1 var(--pix); color: #5c584f; }
+.fr-status svg { width: 18px; height: 18px; transform: rotate(-90deg); }
+.fr-status .ring-bg { fill: none; stroke: #dcd9d1; stroke-width: 3; } .fr-status .ring { fill: none; stroke: #b4543c; stroke-width: 3; stroke-dasharray: 100; stroke-dashoffset: 100; }
+.fr-cust.is-late .fr-st { color: #9c3f28; }
+.fr-reply { border-top: 1px dashed #c9c5bb; padding-top: 10px; }
+.fr-sources { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 10px; }
+.fr-src { position: relative; min-width: 0; overflow-wrap: anywhere; display: grid; gap: 3px; padding: 6px 7px 7px; border: 2px solid #c9c5bb; background: #f6f5f2; color: #8e8a80; transition: border-color .2s, color .2s, background .2s; }
+.fr-src b { font: 400 16px/1 var(--pix); padding-right: 22px; } .fr-src span { font-size: 10.5px; line-height: 1.3; opacity: var(--hit, 0); }
+.fr-src em { position: absolute; top: 4px; right: 5px; font: 400 14px/1 var(--pix); font-style: normal; opacity: var(--hit, 0); }
+.fr-src.on { border-color: #1f6f69; color: var(--ink); background: #e6f2ef; }
+.fr-draft { position: relative; margin: 0 10px 10px; padding: 8px 10px 46px; border: 2px dashed #8e8a80; flex: none; transition: border-color .2s; }
+.fr-draft.sent { border-style: solid; border-color: #1f6f69; }
+.fr-sent { position: absolute; right: 10px; bottom: 10px; padding: 3px 8px 2px; border: 2px solid #1f6f69; color: #1f6f69; font: 400 18px/1 var(--pix); transform: rotate(-4deg); opacity: 0; }
+.fr-draft.sent .fr-sent { opacity: 1; }
+.fr-dlabel { font: 400 16px/1 var(--pix); color: #5c584f; margin-bottom: 4px; }
+.fr-dtext { margin: 0; min-height: 4.4em; }
+.chip { display: inline-block; padding: 0 4px; margin: 0 1px; border: 1px solid #1f6f69; color: #1f6f69; font: 400 13px/1.2 var(--pix); }
+.caret { display: inline-block; width: 6px; height: 1.05em; vertical-align: -2px; background: var(--ink); }
+.fr-approve { all: unset; position: absolute; left: 10px; bottom: 8px; padding: 5px 12px 4px; border: 2px solid var(--ink); border-radius: 7px; background: var(--grey-hi); box-shadow: inset -2px -2px 0 var(--grey-lo), inset 2px 2px 0 #fff; font: 400 18px/1 var(--pix); cursor: pointer; opacity: 0; transition: opacity .2s; }
+.fr-approve.show { opacity: 1; } .fr-approve:disabled { cursor: default; }
+.fr-approve.pulse { outline: 3px solid #1f6f69; outline-offset: 2px; animation: frPulse 1s steps(2) infinite; }
+@keyframes frPulse { 50% { outline-color: transparent; } }
+.fr-approve:not(:disabled):active { box-shadow: inset 2px 2px 0 var(--grey-lo); transform: translateY(1px); }
+.fr-hint { position: absolute; left: 160px; bottom: 12px; font: 400 16px/1 var(--pix); color: #1f6f69; opacity: 0; }
+.fr-hint.show { opacity: 1; }
+.fr-dot { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; background: #1f6f69; opacity: 0; pointer-events: none; z-index: 3; }
+.fr-flydraft { position: absolute; left: -36px; top: -18px; width: 72px; height: 36px; padding: 6px 7px; display: grid; gap: 4px; border: 2px solid #1f6f69; background: #fff; box-shadow: 3px 3px 0 rgba(29,27,23,.25); opacity: 0; pointer-events: none; z-index: 3; }
+.fr-flydraft i { display: block; height: 4px; background: #1d1b17; } .fr-flydraft i:nth-child(2) { width: 80%; } .fr-flydraft i:nth-child(3) { width: 55%; background: #1f6f69; }
+.fr-end { position: absolute; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 20px; text-align: center; background: #e9e7e1; opacity: 0; }
+.fr-end h2 { margin: 0; font: 400 72px/.9 var(--pix); }
+.fr-endsub { margin: 0; font-size: 14px; }
+.fr-award { margin: 4px 0 0; max-width: 44ch; font: 400 20px/1.2 var(--pix); color: #1f6f69; }
+.fr-endbtns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
+@media (prefers-reduced-motion: reduce) { .fr-approve.pulse { animation: none; } .fr-src { transition: none; } }
+/* ---------- scroll push into the screen ---------- */
+.zoom .stage { height: 240vh; }
+.zoom .sticky { position: sticky; top: 0; height: 100vh; display: grid; align-content: center; overflow: hidden; }
+.zoom .rig { margin: 0 auto; will-change: transform; }
+.screen::before { content: ''; position: absolute; inset: 0; z-index: 1002; pointer-events: none; opacity: var(--crt, 0);
+  background: repeating-linear-gradient(180deg, rgba(0,0,0,.22) 0 2px, transparent 2px 4px), radial-gradient(80% 70% at 50% 50%, rgba(190,255,240,.18), transparent 70%); }
+.screen::after { z-index: 1001; }
+.lock { position: absolute; inset: 0; z-index: 1000; display: grid; place-items: center; cursor: pointer; background: #2c6862;
+  background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1.2px); background-size: 4px 4px; transition: opacity .3s steps(4); }
+.lock.unlocked { opacity: 0; pointer-events: none; }
+.lock-in { display: grid; justify-items: center; gap: 10px; text-align: center; color: #eaf6f3; }
+.lock-in h1 { margin: 0; font: 400 clamp(46px, 7.5cqi, 76px)/.9 var(--pix); letter-spacing: .02em; }
+.lock-in .r { font: 400 22px/1.2 var(--pix); color: #bfe3dc; letter-spacing: .04em; }
+.padlock { position: relative; width: 64px; margin: 24px 0 6px; image-rendering: pixelated; }
+.padlock .shackle { position: absolute; left: 0; right: 0; top: 0; }
+.padlock .shackle svg, .padlock .body svg { display: block; width: 100%; height: auto; }
+.padlock .body { display: block; padding-top: 58%; }
+.lock-in .cta { font: 400 30px/1 var(--pix); letter-spacing: .03em; }
+.lock-in .arrow { width: 18px; margin-top: 6px; image-rendering: pixelated; animation: bob 1.1s steps(2) infinite; }
+@keyframes bob { 50% { transform: translateY(5px); } }
+body.inside .rig { will-change: auto; transform: none !important; }
+body.inside .screen { position: fixed; inset: 0; z-index: 100; height: 100vh; min-height: 0; border-radius: 0; }
+.zoomrect { z-index: 900 !important; }
+.caption { width: min(1060px, 94vw); margin: 0 auto 30px; display: flex; justify-content: space-between; gap: 12px; font: 400 18px/1.3 var(--pix); color: #6c665a; }
+
+/* ---------- phone: the screen is the page ---------- */
+@media (max-width: 760px) {
+  body { background: var(--beige); }
+  .rig { width: 100%; margin: 0; }
+  .monitor { border: 0; border-radius: 0; padding: 10px 10px 30px; box-shadow: inset 4px 4px 0 var(--beige-hi), inset -4px -4px 0 var(--beige-lo); }
+  .monitor .vents, .base, .keyboard { display: none; }
+  .monitor .badge { left: 16px; bottom: 7px; font-size: 16px; } .monitor .led { right: 18px; bottom: 11px; }
+  .bezel { border-width: 4px; padding: 6px; border-radius: 16px; }
+  .screen { height: calc(100vh - 70px); height: calc(100dvh - 70px); min-height: 0; border-radius: 10px / 14px; }
+  .menubar { font-size: 19px; gap: 0; padding: 0 6px; white-space: nowrap; } .menubar .hide-s { display: none; } .menubar .logo span { display: none; } .menubar .logo { padding-right: 4px; }
+  .icons { grid-auto-rows: 112px; padding-top: 10px; } .icon svg { width: 54px; }
+  .icons { left: 0; right: 0; top: 40px; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 92px; padding: 0 6px; }
+  .win { left: 4px !important; top: 34px !important; width: calc(100% - 8px) !important; height: calc(100% - 38px) !important; }
+  .resize { display: none; }
+  .titlebar { cursor: default; }
+  .winbody { padding: 20px 16px 28px; }
+  .d-visual-relay, .d-figs { grid-template-columns: 1fr; }
+  .caption { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .lock-in .arrow { animation: none; } }
+</style>
+</head>
+<body>
+<div class="stage" id="stage"><div class="sticky">
+<div class="rig">
+  <div class="monitor">
+    <div class="bezel">
+      <div class="screen" id="screen">
+        <div class="menubar" role="menubar" aria-label="Desktop menu">
+          <span class="logo" id="logo"></span>
+          <button type="button" role="menuitem" data-open="about">About</button>
+          <button type="button" role="menuitem" data-open="work">Work</button>
+          <button type="button" role="menuitem" class="hide-s" data-open="contact">Contact</button>
+          <button type="button" role="menuitem" data-href="/Sofia_Lindelow_CV.pdf">CV</button>
+          <span class="clock" id="clock" aria-hidden="true"></span>
+        </div>
+        <nav class="icons" id="icons" aria-label="Folders"></nav>
+        <div class="lock" id="lock" role="button" tabindex="0" aria-label="Unlock the desktop"><div class="lock-in" id="lockIn"><h1>Sofia Lindelow</h1><p class="r" id="lockRole"></p><div class="padlock" aria-hidden="true"><span class="shackle" id="shackle"></span><span class="body" id="lockBody"></span></div><p class="cta" id="lockCta">Scroll to unlock</p><span class="arrow" id="lockArrow" aria-hidden="true"></span></div></div>
+      </div>
+    </div>
+    <div class="vents" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <span class="badge" aria-hidden="true">SL</span>
+    <span class="led" aria-hidden="true"></span>
+  </div>
+  <div class="base" aria-hidden="true"><span class="slot"></span><span class="power"></span></div>
+  <svg class="keyboard" id="keyboard" aria-hidden="true"></svg>
+</div>
+</div></div>
+
+<script src="/shared/content.js"></script>
+<script src="/shared/kit.js"></script>
+<script src="/shared/code.js"></script>
+<script src="/shared/films.js"></script>
+<script>
+(() => {
+  const C = window.CONTENT, K = window.KIT;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const phone = matchMedia('(max-width: 760px)');
+  const screen = document.getElementById('screen');
+
+  /* ---------- pixel art ---------- */
+  const PAL = { k: '#2b261e', y: '#ecc96f', h: '#f8e4a4', s: '#c9a54d', w: '#ffffff', g: '#9a968c', b: '#cfcbc1', t: '#5fa8a0' };
+  function pix(rows, scale = 1) {
+    const h = rows.length, w = Math.max(...rows.map((r) => r.length)); let r = '';
+    rows.forEach((row, y) => [...row].forEach((c, x) => { if (PAL[c]) r += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${PAL[c]}"/>`; }));
+    return `<svg viewBox="0 0 ${w} ${h}" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`;
+  }
+  const FOLDER = pix([
+    '..kkkkkk.......',
+    '.kyhhhhyk......',
+    'kkkkkkkkkkkkkkk',
+    'khhhhhhhhhhhhhk',
+    'kyyyyyyyyyyyyyk',
+    'kyyyyyyyyyyyyyk',
+    'kyyyyyyyyyyyyyk',
+    'kyyyyyyyyyyyyyk',
+    'kyyyyyyyyyyyyyk',
+    'kyyyyyyyyyyyyyk',
+    'ksssssssssssssk',
+    'kkkkkkkkkkkkkkk']);
+  const DOC = pix([
+    'kkkkkkkkk...',
+    'kwwwwwwwkk..',
+    'kwgggggwkwk.',
+    'kwwwwwwwkkkk',
+    'kwgggggggwwk',
+    'kwwwwwwwwwwk',
+    'kwggggggggwk',
+    'kwwwwwwwwwwk',
+    'kwggggggggwk',
+    'kwwwwwwwwwwk',
+    'kwgggggwwwwk',
+    'kwwwwwwwwwwk',
+    'kkkkkkkkkkkk']);
+  const MAC = pix([
+    'kkkkkkkkkkk',
+    'kbbbbbbbbbk',
+    'kbkkkkkkkbk',
+    'kbktttttkbk',
+    'kbktttttkbk',
+    'kbkkkkkkkbk',
+    'kbbbbbbbbbk',
+    'kkkkkkkkkkk',
+    '.kbbbbbbbk.',
+    'kkkkkkkkkkk']);
+  document.getElementById('logo').innerHTML = MAC + '<span>Sofia Lindelow</span>';
+
+  // keyboard: chunky slab with rows of keys
+  (function keyboard() {
+    const W = 120, H = 22; let r = `<rect x="2" y="2" width="${W - 4}" height="${H - 4}" fill="#efe3c8"/><rect x="2" y="2" width="${W - 4}" height="1" fill="#faf3e2"/><rect x="2" y="${H - 4}" width="${W - 4}" height="2" fill="#d8c7a3"/>`;
+    r += `<rect x="0" y="2" width="2" height="${H - 4}" fill="#2b261e"/><rect x="${W - 2}" y="2" width="2" height="${H - 4}" fill="#2b261e"/><rect x="2" y="0" width="${W - 4}" height="2" fill="#2b261e"/><rect x="2" y="${H - 2}" width="${W - 4}" height="2" fill="#2b261e"/>`;
+    for (let row = 0; row < 4; row++) {
+      const off = [5, 6, 7, 9][row]; const n = [16, 15, 14, 12][row];
+      for (let i = 0; i < n; i++) r += `<rect x="${off + i * 6.6}" y="${4 + row * 4}" width="5" height="3" fill="#d8c7a3"/><rect x="${off + i * 6.6}" y="${4 + row * 4}" width="5" height="1" fill="#faf3e2"/>`;
+    }
+    r += `<rect x="36" y="${4 + 4 * 4 - 1}" width="40" height="2" fill="#d8c7a3"/>`;
+    const svg = document.getElementById('keyboard'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('shape-rendering', 'crispEdges'); svg.innerHTML = r;
+  })();
+
+  /* ---------- the file system: folders hold real files ---------- */
+  const PIC = pix([
+    'kkkkkkkkkkkkk',
+    'kwwwwwwwwwwwk',
+    'kwttttttttywk',
+    'kwtttttttttwk',
+    'kwtttgtttttwk',
+    'kwttgggttgtwk',
+    'kwtgggggggtwk',
+    'kwgggggggggwk',
+    'kwwwwwwwwwwwk',
+    'kkkkkkkkkkkkk']);
+  const CODEI = pix([
+    'kkkkkkkkk...',
+    'kwwwwwwwkk..',
+    'kwwwwwwwkwk.',
+    'kwwwwwwwkkkk',
+    'kwkwwwwwkwwk',
+    'kkwwwwwwwkwk',
+    'kwkwwwwwkwwk',
+    'kwwwwwwwwwwk',
+    'kwggggggggwk',
+    'kwwwwwwwwwwk',
+    'kwggggggwwwk',
+    'kwwwwwwwwwwk',
+    'kkkkkkkkkkkk']);
+  const GLOBE = pix([
+    '...kkkkk...',
+    '..kttwttk..',
+    '.kttwttwtk.',
+    'kkkkkkkkkkk',
+    'kttwttwttwk',
+    'kttwttwttwk',
+    'kkkkkkkkkkk',
+    '.kttwttwtk.',
+    '..kttwttk..',
+    '...kkkkk...']);
+
+  const FILM = pix([
+    'kkkkkkkkkkkkk',
+    'kwkwkwkwkwkwk',
+    'kkkkkkkkkkkkk',
+    'ktttwtttttttk',
+    'ktttwwttttttk',
+    'ktttwwwtttttk',
+    'ktttwwttttttk',
+    'ktttwtttttttk',
+    'kkkkkkkkkkkkk',
+    'kwkwkwkwkwkwk',
+    'kkkkkkkkkkkkk']);
+  const NODES = {};
+  const node = (key, o) => (NODES[key] = { key, ...o });
+  const txt = (key, name, html, size = [600, 460]) => node(key, { name, icon: DOC, kind: 'text', html, size });
+  const img = (key, name, html, size = [600, 470]) => node(key, { name, icon: PIC, kind: 'image', html, size });
+  const code = (key, name, ref) => node(key, { name, icon: CODEI, kind: 'code', ref, size: [720, 480] });
+  const film = (key, name, id) => node(key, { name, icon: FILM, kind: 'film', film: id, size: [780, 600] });
+  const overview = (key, name, title, head, rest, kids, o = {}) => node(key, { name, icon: FOLDER, kind: 'overview', title, head, rest, kids, film: o.film, size: o.size || [980, 700] });
+  const headH = (t, sub) => `<header class="d-head"><h1 class="d-title">${K.esc(t)}</h1><p class="d-sub">${K.esc(sub)}</p></header>`;
+  const restOf = (p) => K.projectDetail(p).replace(/^<header[\s\S]*?<\/header>/, '');
+  const lnk = (key, name, href) => node(key, { name, icon: GLOBE, kind: 'link', href });
+  const folder = (key, name, title, kids, o = {}) => node(key, { name, icon: FOLDER, kind: 'folder', title, kids, size: o.size || [470, 300], readme: o.readme });
+  const P = Object.fromEntries(C.projects.map((p) => [p.id, p]));
+
+  const readme = (p) => `<header class="d-head"><h1 class="d-title">${K.esc(p.title)}</h1><p class="d-sub">${K.esc(p.sub)}</p></header>${K.bullets(p.bullets)}${K.links(p.links)}`;
+  const stack = (t) => `<h3>Stack</h3>${K.tags(t)}`;
+  const figure = (f) => `<figure class="viewer"><div class="gx-imgwrap"><img src="${f.src}" width="${f.w}" height="${f.h}" alt="${K.esc(f.caption.replace('Figure · ', ''))} figure from the EEG project"></div><figcaption>${f.caption}</figcaption></figure>`;
+  const diagram = (html) => `<div class="viewer">${html}</div>`;
+  const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  // About and CV live on the desktop
+  txt('about', 'About Sofia', `<div class="about"><h1>${C.profile.name}</h1><p class="role">${C.profile.role}</p><p class="statement">${C.profile.statement}</p><p class="edu">${C.profile.education}</p>
+      <div class="open"><button class="btn default" data-open="relay">Open RELAY</button><button class="btn" data-open="work">Open Work</button></div></div>`, [580, 450]);
+  lnk('cv', 'CV.pdf', C.profile.cv);
+
+  // Work
+  img('work/scope', 'Delivery scope.gif', diagram(K.visual('fde')), [560, 380]);
+  C.work.forEach((w) => txt('work/' + w.id, w.title + '.txt', K.workItem(w)));
+  overview('work', 'Work', 'Work Experience', headH('Work Experience', C.work.length + ' roles'), `<div class="d-visual">${K.visual('fde')}</div><div class="d-body">${C.work.map((w) => K.workItem(w)).join('')}</div>`, ['work/scope', ...C.work.map((w) => 'work/' + w.id)]);
+
+  // RELAY
+  txt('relay/readme', 'Read Me.txt', readme(P.relay));
+  img('relay/loop', 'Core loop.gif', `<div class="viewer">${K.visual('relay')}${K.relayStages()}</div>`, [720, 620]);
+  txt('relay/stack', 'Stack.txt', stack(P.relay.tags), [480, 260]);
+  code('relay/code', 'draft_actions.py', 'relay');
+  lnk('relay/github', 'Code', P.relay.links[0].href); lnk('relay/demo', 'Demo', P.relay.links[1].href);
+  overview('relay', 'RELAY', 'RELAY', headH(P.relay.title, P.relay.sub), `<div class="d-body">${K.bullets(P.relay.bullets)}${K.tags(P.relay.tags)}${K.links(P.relay.links)}</div>`, ['relay/loop', 'relay/readme', 'relay/stack', 'relay/code', 'relay/github', 'relay/demo'], { film: 'relay' });
+
+  // CGCNN
+  txt('cgcnn/readme', 'Read Me.txt', readme({ ...P.cgnn, title: 'CGCNN' }));
+  img('cgcnn/diagram', 'Message passing.gif', diagram(K.visual('cgnn')), [560, 400]);
+  txt('cgcnn/stack', 'Stack.txt', stack(P.cgnn.tags), [480, 260]);
+  code('cgcnn/conv', 'graph_convolution.py', 'cgcnn_conv'); code('cgcnn/model', 'cgcnn_model.py', 'cgcnn_model');
+  overview('cgcnn', 'CGCNN', 'CGCNN', headH('CGCNN', P.cgnn.sub), restOf(P.cgnn), ['cgcnn/diagram', 'cgcnn/readme', 'cgcnn/stack', 'cgcnn/conv', 'cgcnn/model']);
+
+  // EEG
+  txt('eeg/readme', 'Read Me.txt', readme(P.eeg));
+  P.eeg.figures.forEach((f, i) => img('eeg/fig' + i, f.caption.replace('Figure · ', '') + '.png', figure(f), [640, 500]));
+  code('eeg/code', 'm1_model_execution.py', 'eeg');
+  lnk('eeg/github', P.eeg.links[0].label, P.eeg.links[0].href);
+  overview('eeg', 'EEG Memory', P.eeg.title, headH(P.eeg.title, P.eeg.sub), restOf(P.eeg), ['eeg/fig0', 'eeg/fig1', 'eeg/fig2', 'eeg/readme', 'eeg/code', 'eeg/github']);
+
+  // Kinase
+  txt('kinase/readme', 'Read Me.txt', readme(P.kinase));
+  img('kinase/diagram', 'Holdout splits.gif', diagram(K.visual('kinase')), [560, 400]);
+  txt('kinase/stack', 'Stack.txt', stack(P.kinase.tags), [480, 260]);
+  code('kinase/code', 'features.py', 'kinase');
+  lnk('kinase/github', P.kinase.links[0].label, P.kinase.links[0].href);
+  overview('kinase', 'Kinase', P.kinase.title, headH(P.kinase.title, P.kinase.sub), restOf(P.kinase), ['kinase/diagram', 'kinase/readme', 'kinase/stack', 'kinase/code', 'kinase/github']);
+
+  // Earlier agents: one subfolder each
+  const AGENT_CODE = { 'Sales Development Workflows': ['sales', 'scan_inbox.py'], 'HIPAA-Guard': ['hipaa', 'scanner.py'], 'Cart Intent Classifier': ['cart', 'engine.py'], 'Growth and Referral Agent': ['growth', 'run_pipeline.py'], 'Competitive Intelligence Agent': ['competitive', 'analyze_competitive_landscape.py'] };
+  img('agents/diagram', 'Five prototypes.gif', diagram(K.visual('agents')), [560, 400]);
+  const agentKids = P.agents.children.map((c) => {
+    const k = 'agents/' + slug(c.title), kids = [k + '/readme', k + '/stack'];
+    txt(k + '/readme', 'Read Me.txt', `<header class="d-head"><h1 class="d-title">${K.esc(c.title)}</h1><p class="d-sub">${K.esc(c.sub)}</p></header>${K.bullets(c.bullets)}${K.links(c.links)}`);
+    txt(k + '/stack', 'Stack.txt', stack(c.tags), [480, 260]);
+    const cc = AGENT_CODE[c.title]; if (cc) { code(k + '/code', cc[1], cc[0]); kids.push(k + '/code'); }
+    c.links.forEach((l, i) => { lnk(k + '/l' + i, l.label, l.href); kids.push(k + '/l' + i); });
+    folder(k, c.title, c.title, kids, { readme: k + '/readme' });
+    return k;
+  });
+  overview('agents', 'Earlier Agents', P.agents.title, headH(P.agents.title, P.agents.sub), restOf(P.agents), ['agents/diagram', ...agentKids]);
+
+  // Research
+  const R = C.research, labHead = `<p class="w-meta">${K.esc(R.lab.title)} · ${K.esc(R.lab.meta)}</p>`;
+  R.lab.studies.forEach((st) => txt('research/' + slug(st.title), st.title + '.txt', `<header class="d-head"><h1 class="d-title">${K.esc(st.title)}</h1>${labHead}</header>${K.bullets(st.bullets)}${K.tags(st.tags)}`));
+  txt('research/independent', R.independent.title + '.txt', `<header class="d-head"><h1 class="d-title">${K.esc(R.independent.title)}</h1></header><ul class="d-bullets">${R.independent.items.map((i) => `<li>${K.link(i)}. ${K.esc(i.text)}</li>`).join('')}</ul><p class="r-int">${K.esc(R.interests)}</p>`);
+  folder('research', 'Research', 'Research', [...R.lab.studies.map((st) => 'research/' + slug(st.title)), 'research/independent']);
+
+  // Writing: one shortcut per piece
+  const wKids = [];
+  C.writing.forEach((g) => g.items.forEach((it) => { const k = 'writing/' + slug(it.label); lnk(k, it.label, it.href); wKids.push(k); }));
+  folder('writing', 'Writing', 'Writing', wKids, { size: [560, 330] });
+
+  // Education
+  C.education.forEach((e) => txt('education/' + slug(e.title), e.title + '.txt', `<header class="d-head"><h1 class="d-title">${K.esc(e.title)}</h1><p class="w-meta">${K.esc(e.meta)}</p></header>${e.text ? `<p>${K.esc(e.text)}</p>` : ''}${K.links(e.links)}`, [560, 340]));
+  folder('education', 'Education', 'Education', C.education.map((e) => 'education/' + slug(e.title)));
+
+  // Contact
+  C.contact.forEach((c) => lnk('contact/' + slug(c.label), c.label, c.href));
+  folder('contact', 'Contact', 'Contact', C.contact.map((c) => 'contact/' + slug(c.label)), { size: [420, 240] });
+
+  const DESKTOP = ['about', 'work', 'relay', 'cgcnn', 'eeg', 'kinase', 'agents', 'research', 'writing', 'education', 'contact', 'cv'];
+  const icons = document.getElementById('icons');
+  const iconHTML = (k, cls) => { const n = NODES[k]; const ext = n.kind === 'link' && !/^mailto:/.test(n.href); return `<a class="${cls}" href="${n.kind === 'link' ? n.href : '#/' + k}" data-key="${k}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${n.icon}<span>${K.esc(n.name)}</span></a>`; };
+  icons.innerHTML = DESKTOP.map((k) => iconHTML(k, 'icon')).join('');
+
+  function codeHTML(ref) {
+    const c = window.CODE[ref];
+    const KW = /\b(def|class|return|if|elif|else|for|while|try|except|finally|with|as|import|from|async|await|raise|in|not|and|or|None|True|False|lambda|yield|self)\b/g;
+    let doc = false;
+    const rows = c.code.split('\n').map((line, i) => {
+      let h = K.esc(line);
+      const q = (line.match(/"""|'''/g) || []).length;
+      if (doc || q) { const cls = 'cm'; if (q % 2 === 1) doc = !doc; h = `<span class="${cls}">${h}</span>`; }
+      else if (line.trim().startsWith('#')) h = `<span class="cm">${h}</span>`;
+      else h = h.replace(KW, '<b>$1</b>');
+      return `<span class="ln">${c.start + i}</span>${h || ' '}`;
+    }).join('\n');
+    const src = c.url ? `<a class="tl" href="${c.url}" target="_blank" rel="noopener noreferrer">View the full file on GitHub</a>` : `<span>${K.esc(c.note)}</span>`;
+    return `<div class="codebar"><span>${K.esc(c.path)} · lines ${c.start} to ${c.end} of ${c.total}</span>${src}</div><pre class="code">${rows}</pre>`;
+  }
+
+  function body(n) {
+    if (n.kind === 'folder') return `<div class="files">${n.kids.map((k) => iconHTML(k, 'ficon')).join('')}</div>`;
+    if (n.kind === 'overview') return `${n.head}<div class="ovgrid">${n.film ? `<div class="d-visual"><figure class="mg"><div class="fstage"></div><figcaption>Motion graphic · click to pause</figcaption></figure></div>` : ''}${n.rest}</div><section class="fstrip"><h3>In this folder</h3><div class="files">${n.kids.map((k) => iconHTML(k, 'ficon')).join('')}</div></section>`;
+    if (n.kind === 'code') return codeHTML(n.ref);
+    if (n.kind === 'film') return playerHTML();
+    return n.html;
+  }
+  function playerHTML() {
+    return `<div class="player"><div class="fstage"></div><p class="narr" aria-live="polite"></p>
+      <div class="ctrl"><button type="button" class="pp" aria-label="Play"></button><div class="scrub"><input type="range" min="0" step="10" aria-label="Scrub through the film"><div class="ticks"></div></div><span class="tc"></span></div></div>`;
+  }
+
+  /* ---------- window manager ---------- */
+  const wins = new Map(); let zTop = 20, cascade = 0;
+  const sel = (key) => document.querySelectorAll('.icon, .ficon').forEach((i) => i.classList.toggle('sel', i.dataset.key === key));
+  function focusWin(w) { wins.forEach((x) => x.el.classList.remove('front')); w.el.classList.add('front'); w.el.style.zIndex = ++zTop; sel(w.key); }
+
+  function zoom(from, to, done) {
+    if (reduce.matches || phone.matches || !from) { done(); return; }
+    const sr = screen.getBoundingClientRect(); const N = 4;
+    for (let i = 1; i <= N; i++) {
+      const t = i / N, z = document.createElement('div'); z.className = 'zoomrect';
+      const l = from.left + (to.left - from.left) * t, tp = from.top + (to.top - from.top) * t, w = from.width + (to.width - from.width) * t, h = from.height + (to.height - from.height) * t;
+      Object.assign(z.style, { left: Math.round(l - sr.left) + 'px', top: Math.round(tp - sr.top) + 'px', width: Math.round(w) + 'px', height: Math.round(h) + 'px' });
+      screen.appendChild(z);
+      z.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 60, delay: i * 40, easing: 'steps(1, end)', fill: 'backwards' }).onfinish = () => z.remove();
+    }
+    setTimeout(done, N * 40 + 50);
+  }
+
+  function open(key, opts = {}) {
+    const n = NODES[key]; if (!n) return;
+    if (n.kind === 'link') { if (/^mailto:/.test(n.href)) location.href = n.href; else window.open(n.href, '_blank', 'noopener'); return; }
+    if (wins.has(key)) { focusWin(wins.get(key)); return; }
+    const sr = screen.getBoundingClientRect();
+    const iconsW = phone.matches ? 0 : icons.getBoundingClientRect().right - sr.left + 10;
+    const W = Math.min(n.size[0], opts.w || 9999, sr.width - iconsW - 16 - (n.kind === 'overview' ? 0 : 3 * 28)), H = Math.min(n.size[1], sr.height - 50 - 3 * 26);
+    const left = Math.max(iconsW, Math.min(sr.width - W - 10, opts.x ?? (iconsW + (n.kind === 'overview' ? 0 : cascade * 28))));
+    const top = Math.max(38, Math.min(sr.height - H - 8, opts.y ?? (40 + (n.kind === 'overview' ? 0 : cascade * 26))));
+    if (opts.x === undefined && n.kind !== 'overview') cascade = (cascade + 1) % 4;
+    const parent = NODES[key.split('/').slice(0, -1).join('/')];
+    const title = (n.kind === 'folder' || n.kind === 'overview') ? n.title : (parent ? parent.name + ' · ' + n.name : n.name);
+    const el = document.createElement('section');
+    el.className = 'win win-' + n.kind; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', title);
+    Object.assign(el.style, { left: left + 'px', top: top + 'px', width: W + 'px', height: H + 'px' });
+    el.innerHTML = `<header class="titlebar"><button class="x" aria-label="Close ${K.esc(title)}"></button><span class="t">${K.esc(title)}</span></header>
+      ${n.kind === 'folder' ? `<div class="winbar"><span>${n.kids.length} items</span><span></span></div>` : ''}<div class="winbody">${body(n)}</div><span class="resize" aria-hidden="true"></span>`;
+    const w = { key, el, src: opts.src || null }; wins.set(key, w);
+    const fromEl = opts.src || icons.querySelector(`[data-key="${key}"]`);
+    const from = opts.from || (fromEl ? fromEl.querySelector('svg').getBoundingClientRect() : null);
+    zoom(from, { left: sr.left + left, top: sr.top + top, width: W, height: H }, () => {
+      screen.appendChild(el); focusWin(w);
+      if (n.kind === 'film' || (n.kind === 'overview' && n.film)) initFilm(el, n, w);
+      if (!opts.noFocus) el.querySelector('.x').focus({ preventScroll: true, focusVisible: false });
+      if (n.kind === 'folder' && n.readme && !opts.noReadme) {
+        const rEl = el.querySelector(`.ficon[data-key="${n.readme}"]`);
+        const rn = NODES[n.readme], rw = Math.min(rn.size[0], sr.width - iconsW - 16 - 3 * 28);
+        const right = rn.kind !== 'film' && sr.width - (left + W) - 14 >= Math.min(rw, 380);
+        open(n.readme, { src: rEl, x: right ? left + W + 12 : rn.kind === 'film' ? left + 40 : left + 60, y: right ? top : rn.kind === 'film' ? top + 30 : top + 160, w: right ? sr.width - (left + W) - 22 : undefined, silent: true });
+      }
+    });
+    el.addEventListener('pointerdown', () => focusWin(w));
+    el.querySelector('.x').addEventListener('click', (e) => { e.stopPropagation(); close(key); });
+    drag(el, el.querySelector('.titlebar'), 'move'); drag(el, el.querySelector('.resize'), 'size');
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-open]'); if (b) { open(b.dataset.open); return; }
+      const f = e.target.closest('.ficon'); if (!f) return;
+      if (NODES[f.dataset.key].kind === 'link') return; // the anchor opens it
+      e.preventDefault(); sel(f.dataset.key); open(f.dataset.key, { src: f });
+    });
+    if (!opts.silent) history.replaceState(null, '', '#/' + key);
+  }
+
+  const PLAY = '<svg viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><path d="M2 1h1v8H2zM3 2h1v6H3zM4 3h1v4H4zM5 4h1v2H5z" fill="currentColor"/></svg>';
+  const PAUSE = '<svg viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><path d="M2 1h2v8H2zM6 1h2v8H6z" fill="currentColor"/></svg>';
+  const STEP = '<svg viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 1h1v8H1zM2 2h1v6H2zM3 3h1v4H3zM4 4h1v2H4zM6 1h2v8H6z" fill="currentColor"/></svg>';
+  const fmt = (t) => '00:' + String(Math.floor(t)).padStart(2, '0');
+  function initFilm(el, n, w) {
+    const F = window.FILMS[n.film], D = F.duration;
+    const stage = el.querySelector('.fstage');
+    if (!el.querySelector('.pp')) { initLoop(stage, F, w); return; }
+    const range = el.querySelector('input[type=range]'), pp = el.querySelector('.pp'), tc = el.querySelector('.tc'), narr = el.querySelector('.narr');
+    const m = F.mount(stage, { code: P.relay.links[0].href, demo: P.relay.links[1].href });
+    const s = { approved: false, waitedFor: 0, reduce: reduce.matches };
+    let t = 0, playing = !s.reduce, last = null, raf = 0, dirty = true;
+    range.max = D * 1000;
+    el.querySelector('.ticks').innerHTML = F.chapters.map((c) => `<button type="button" style="left:${(c.t / D) * 100}%" data-t="${c.t}" title="${c.label}"><span>${c.label}</span></button>`).join('');
+    const ro = new ResizeObserver(() => { stage.classList.toggle('narrow', stage.clientWidth < 440); stage.classList.toggle('compact', stage.clientWidth >= 440 && stage.clientWidth < 600); dirty = true; }); ro.observe(stage);
+    const setT = (v) => { t = Math.max(0, Math.min(D, v)); s.approved = t > F.gate; s.waitedFor = 0; dirty = true; };
+    const nextChapter = () => { const c = F.chapters.find((c) => c.t > t + .01); return c ? c.t : D; };
+    function draw() {
+      m.render(t, s); range.value = Math.round(t * 1000); tc.textContent = fmt(t) + ' / ' + fmt(D); narr.textContent = m.caption(t, s);
+      const atEnd = t >= D;
+      const gated = t >= F.gate && !s.approved;
+      pp.innerHTML = s.reduce ? STEP : (playing && !atEnd && !gated ? PAUSE : PLAY);
+      pp.setAttribute('aria-label', s.reduce ? 'Next step' : atEnd ? 'Replay' : gated ? 'Waiting for approval' : playing ? 'Pause' : 'Play');
+      el.querySelectorAll('.ticks button').forEach((b) => b.classList.toggle('done', +b.dataset.t <= t + .01));
+    }
+    function loop(ts) {
+      const dt = last == null ? 0 : Math.min(.1, (ts - last) / 1000); last = ts;
+      if (playing && !s.reduce) {
+        if (t >= F.gate && !s.approved) { t = F.gate; s.waitedFor += dt; }
+        else { t = Math.min(D, t + dt); if (t >= D) playing = false; }
+        dirty = true;
+      }
+      if (dirty) { draw(); dirty = false; }
+      raf = requestAnimationFrame(loop);
+    }
+    const replay = () => { setT(0); s.approved = false; playing = !s.reduce; };
+    pp.addEventListener('click', () => {
+      if (t >= D) { replay(); return; }
+      if (s.reduce) { const nt = nextChapter(); if (t < F.gate && nt > F.gate && !s.approved) { t = F.gate; } else { t = nt; } dirty = true; return; }
+      playing = !playing; dirty = true;
+    });
+    range.addEventListener('input', () => { setT(range.value / 1000); });
+    el.querySelector('.ticks').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) setT(+b.dataset.t); });
+    m.approveButton.addEventListener('click', () => { s.approved = true; s.waitedFor = 0; if (s.reduce) t = F.chapters.find((c) => c.t > F.gate).t; else playing = true; dirty = true; });
+    m.replayButton.addEventListener('click', replay);
+    stage.addEventListener('click', (e) => { const b = e.target.closest('[data-href]'); if (b) window.open(b.dataset.href, '_blank', 'noopener'); });
+    raf = requestAnimationFrame(loop);
+    w.stop = () => { cancelAnimationFrame(raf); ro.disconnect(); };
+  }
+
+  // Looping motion graphic: no controls, a cursor approves, then it starts over.
+  function initLoop(stage, F, w) {
+    const m = F.mount(stage, { code: P.relay.links[0].href, demo: P.relay.links[1].href });
+    const s = { approved: false, waitedFor: 0, reduce: reduce.matches, auto: true };
+    const SPEED = 1.5; let t = 0, last = null, raf = 0, paused = false;
+    const fig = stage.closest('.mg');
+    const ro = new ResizeObserver(() => { stage.classList.toggle('narrow', stage.clientWidth < 440); stage.classList.toggle('compact', stage.clientWidth >= 440 && stage.clientWidth < 600); m.render(t, s); }); ro.observe(stage);
+    fig.addEventListener('click', (e) => { if (e.target.closest('button, a')) return; paused = !paused; fig.classList.toggle('paused', paused); });
+    if (s.reduce) { t = F.still; s.approved = true; m.render(t, s); fig.querySelector('figcaption').textContent = 'Motion graphic · paused for reduced motion'; w.stop = () => ro.disconnect(); return; }
+    function loop(ts) {
+      const dt = last == null ? 0 : Math.min(.1, (ts - last) / 1000) * SPEED; last = ts;
+      if (!paused) {
+        t += dt; if (t >= F.gate) s.approved = true;
+        if (t >= F.loopEnd) { t = 0; s.approved = false; }
+        m.render(t, s);
+      }
+      raf = requestAnimationFrame(loop);
+    }
+    raf = requestAnimationFrame(loop);
+    w.stop = () => { cancelAnimationFrame(raf); ro.disconnect(); };
+  }
+
+  function close(key) {
+    const w = wins.get(key); if (!w) return;
+    if (w.stop) w.stop();
+    const r = w.el.getBoundingClientRect(); w.el.remove(); wins.delete(key);
+    const back = (w.src && w.src.isConnected) ? w.src : icons.querySelector(`[data-key="${key}"]`);
+    if (back) zoom(r, back.querySelector('svg').getBoundingClientRect(), () => {});
+    const rest = [...wins.values()].sort((a, b) => (+b.el.style.zIndex) - (+a.el.style.zIndex));
+    if (rest[0]) focusWin(rest[0]); else sel(null);
+    history.replaceState(null, '', rest[0] ? '#/' + rest[0].key : location.pathname);
+    if (back) back.focus({ preventScroll: true, focusVisible: false });
+  }
+
+  function drag(el, handle, mode) {
+    handle.addEventListener('pointerdown', (e) => {
+      if (phone.matches || e.target.closest('.x') || e.button !== 0) return;
+      e.preventDefault(); handle.setPointerCapture(e.pointerId);
+      const sr = screen.getBoundingClientRect(), r = el.getBoundingClientRect();
+      const sx = e.clientX, sy = e.clientY, l0 = r.left - sr.left, t0 = r.top - sr.top, w0 = r.width, h0 = r.height;
+      const move = (ev) => {
+        const dx = ev.clientX - sx, dy = ev.clientY - sy;
+        if (mode === 'move') {
+          el.style.left = Math.max(-w0 + 80, Math.min(sr.width - 80, l0 + dx)) + 'px';
+          el.style.top = Math.max(32, Math.min(sr.height - 30, t0 + dy)) + 'px';
+        } else {
+          el.style.width = Math.max(300, Math.min(sr.width - l0 - 4, w0 + dx)) + 'px';
+          el.style.height = Math.max(200, Math.min(sr.height - t0 - 4, h0 + dy)) + 'px';
+        }
+      };
+      const up = () => { handle.removeEventListener('pointermove', move); handle.removeEventListener('pointerup', up); handle.removeEventListener('pointercancel', up); };
+      handle.addEventListener('pointermove', move); handle.addEventListener('pointerup', up); handle.addEventListener('pointercancel', up);
+    });
+  }
+
+  icons.addEventListener('click', (e) => { const a = e.target.closest('.icon'); if (!a || NODES[a.dataset.key].kind === 'link') return; e.preventDefault(); sel(a.dataset.key); open(a.dataset.key); });
+  document.querySelector('.menubar').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.href) window.open(b.dataset.href, '_blank', 'noopener'); else open(b.dataset.open, { from: b.getBoundingClientRect() }); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') { const top = [...wins.values()].find((w) => w.el.classList.contains('front')); if (top) close(top.key); } });
+  addEventListener('hashchange', () => { const k = location.hash.replace(/^#\/?/, ''); if (NODES[k] && NODES[k].kind !== 'link') open(k, { silent: true }); });
+
+  const clock = document.getElementById('clock');
+  const tick = () => { clock.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); };
+  tick(); setInterval(tick, 20000);
+
+  /* ---------- lock screen and the scroll push into the screen ---------- */
+  PAL.l = '#eaf6f3';
+  document.getElementById('shackle').innerHTML = '<svg viewBox="0 0 64 44" shape-rendering="crispEdges"><path d="M14 44V22a18 18 0 0 1 36 0v22" fill="none" stroke="#eaf6f3" stroke-width="8"/></svg>';
+  document.getElementById('lockBody').innerHTML = '<svg viewBox="0 0 64 46" shape-rendering="crispEdges"><rect x="2" y="0" width="60" height="46" fill="#eaf6f3"/><rect x="28" y="12" width="8" height="8" fill="#2c6862"/><rect x="30" y="20" width="4" height="12" fill="#2c6862"/><rect x="2" y="42" width="60" height="4" fill="#b6dcd5"/></svg>';
+  document.getElementById('lockArrow').innerHTML = pix(['..ll..', '..ll..', '..ll..', 'llllll', '.llll.', '..ll..']);
+  document.getElementById('lockRole').textContent = C.profile.role;
+  const stage = document.getElementById('stage'), rig = document.querySelector('.rig'), lock = document.getElementById('lock');
+  const lockIn = document.getElementById('lockIn'), shackle = document.getElementById('shackle'), arrow = document.getElementById('lockArrow');
+  const ZOOM = !phone.matches && !reduce.matches;
+  if (!ZOOM) document.getElementById('lockCta').textContent = phone.matches ? 'Tap to unlock' : 'Click to unlock';
+  let inside = false, opened = false, rest = null, ticking = false;
+  const deep = () => { const id = location.hash.replace(/^#\/?/, ''); return NODES[id] && NODES[id].kind !== 'link' ? id : null; };
+
+  function startDesktop() {
+    if (opened) return; opened = true;
+    const id = deep();
+    if (!phone.matches) open('about', { silent: true });
+    if (id && id !== 'about') open(id, { silent: true });
+  }
+  function unlock() { lock.classList.add('unlocked'); startDesktop(); }
+
+  function measure() { rig.style.transform = 'none'; rest = { r: screen.getBoundingClientRect(), g: rig.getBoundingClientRect() }; }
+  const maxScroll = () => stage.offsetHeight - innerHeight;
+  function enter() {
+    inside = true; rig.style.transform = 'none'; document.body.classList.add('inside');
+    screen.style.setProperty('--crt', 0); unlock();
+  }
+  function exit() { inside = false; document.body.classList.remove('inside'); lock.classList.remove('unlocked'); }
+  function frame() {
+    ticking = false;
+    const p = Math.min(1, Math.max(0, scrollY / maxScroll()));
+    if (p >= 0.995) { if (!inside) enter(); return; }
+    if (inside) exit();
+    const e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+    const { r, g } = rest, vw = innerWidth, vh = innerHeight;
+    const k = Math.max(vw / r.width, vh / r.height) * 1.03;
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    rig.style.transformOrigin = `${cx - g.left}px ${cy - g.top}px`;
+    rig.style.transform = `translate(${((vw / 2 - cx) * e).toFixed(2)}px, ${((vh / 2 - cy) * e).toFixed(2)}px) scale(${(1 + (k - 1) * e).toFixed(4)})`;
+    screen.style.setProperty('--crt', (0.75 * Math.sin(Math.PI * Math.min(1, p / .92))).toFixed(3));
+    lockIn.style.opacity = p < .62 ? 1 : Math.max(0, 1 - (p - .62) / .22).toFixed(3);
+    shackle.style.transform = `translateY(${(-Math.min(1, Math.max(0, (p - .4) / .2)) * 34).toFixed(1)}%)`;
+    arrow.style.opacity = p < .06 ? 1 : 0;
+  }
+  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+
+  if (ZOOM) {
+    document.body.classList.add('zoom');
+    measure();
+    addEventListener('scroll', req, { passive: true });
+    addEventListener('resize', () => { if (!inside) { measure(); } req(); });
+    const toEnd = (smooth) => scrollTo({ top: maxScroll() + 2, behavior: smooth ? 'smooth' : 'auto' });
+    lock.addEventListener('click', () => toEnd(true));
+    lock.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toEnd(true); } });
+    addEventListener('hashchange', () => { if (!inside && deep()) toEnd(false); });
+    if (deep()) toEnd(false);
+    frame();
+  } else {
+    lock.addEventListener('click', unlock);
+    lock.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); unlock(); } });
+    if (deep()) unlock();
+  }
+})();
+</script>
+</body>
+</html>
