@@ -1,5 +1,7 @@
 [build]
   publish = "public"
+  # Static site: overrides the old "npm run build" set in the Netlify UI.
+  command = "echo 'Static site, no build step'"
 
 [[redirects]]
   from = "/*"
