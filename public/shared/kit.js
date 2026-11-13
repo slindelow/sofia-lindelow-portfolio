@@ -21,6 +21,27 @@
   const T = (x, y, s, cls = '') => `<text x="${x}" y="${y}" class="gx-t ${cls}">${esc(s)}</text>`;
 
   const svg = {
+    tooling: () => {
+      const rows = [
+        ['skill-compass', ['installed tools', 'grouped by job', 'routing table']],
+        ['Hemingway Bridge', ['session ends', 'BRIDGE.md', 'next session']]
+      ];
+      const body = rows.map(([name, steps], r) => {
+        const y = 34 + r * 72;
+        const chips = steps.map((s, i) => {
+          const x = 12 + i * 104;
+          const arrow = i < 2 ? `<path d="M${x + 92} ${y + 29}h10" class="gx-stroke-soft"/>` : '';
+          return `<g class="gx-row" style="--i:${r * 3 + i}"><rect x="${x}" y="${y + 18}" width="92" height="22" rx="5" class="${i === 2 ? 'gx-rowbg gx-model' : 'gx-rowbg'}"/>${T(x + 46, y + 33, s, 'gx-mid')}</g>${arrow}`;
+        }).join('');
+        return `${T(14, y + 8, name, 'gx-dim')}${chips}`;
+      }).join('');
+      return `
+<svg viewBox="0 0 320 200" class="gx-svg gx-tooling" role="img" aria-label="Diagram of the agent tooling: skill-compass turns installed tools into a routing table, and Hemingway Bridge carries each project's next step from one agent session to the next">
+  ${body}
+  ${T(14, 186, 'Claude Code · Codex · Gemini CLI', 'gx-s gx-sfix')}
+</svg>`;
+    },
+
     relay: () => `
 <svg viewBox="0 0 320 200" class="gx-svg gx-relay" role="img" aria-label="Diagram of the RELAY loop: an unanswered Slack question, a deadline, a cited draft and human approval">
   ${T(18, 24, '#customer-success', 'gx-dim')}
@@ -130,7 +151,8 @@
     cgnn: 'Diagram · message passing',
     kinase: 'Diagram · holdout splits',
     agents: 'Diagram · five prototypes',
-    fde: 'Diagram · delivery scope'
+    fde: 'Diagram · delivery scope',
+    tooling: 'Diagram · agent tooling'
   };
 
   function visual(id) {

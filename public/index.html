@@ -497,7 +497,8 @@ body.inside .screen { position: fixed; inset: 0; z-index: 100; height: 100vh; mi
   img('cgcnn/diagram', 'Message passing.gif', diagram(K.visual('cgnn')), [560, 400]);
   txt('cgcnn/stack', 'Stack.txt', stack(P.cgnn.tags), [480, 260]);
   code('cgcnn/conv', 'graph_convolution.py', 'cgcnn_conv'); code('cgcnn/model', 'cgcnn_model.py', 'cgcnn_model');
-  overview('cgcnn', 'CGCNN', 'CGCNN', headH('CGCNN', P.cgnn.sub), restOf(P.cgnn), ['cgcnn/diagram', 'cgcnn/readme', 'cgcnn/stack', 'cgcnn/conv', 'cgcnn/model']);
+  lnk('cgcnn/github', P.cgnn.links[0].label, P.cgnn.links[0].href);
+  overview('cgcnn', 'CGCNN', 'CGCNN', headH('CGCNN', P.cgnn.sub), restOf(P.cgnn), ['cgcnn/diagram', 'cgcnn/readme', 'cgcnn/stack', 'cgcnn/conv', 'cgcnn/model', 'cgcnn/github']);
 
   // EEG
   txt('eeg/readme', 'Read Me.txt', readme(P.eeg));
@@ -513,6 +514,13 @@ body.inside .screen { position: fixed; inset: 0; z-index: 100; height: 100vh; mi
   code('kinase/code', 'features.py', 'kinase');
   lnk('kinase/github', P.kinase.links[0].label, P.kinase.links[0].href);
   overview('kinase', 'Kinase', P.kinase.title, headH(P.kinase.title, P.kinase.sub), restOf(P.kinase), ['kinase/diagram', 'kinase/readme', 'kinase/stack', 'kinase/code', 'kinase/github']);
+
+  // Agent Tooling
+  txt('tooling/readme', 'Read Me.txt', readme(P.tooling));
+  img('tooling/diagram', 'Agent tooling.gif', diagram(K.visual('tooling')), [560, 400]);
+  txt('tooling/stack', 'Stack.txt', stack(P.tooling.tags), [480, 260]);
+  lnk('tooling/github', P.tooling.links[0].label, P.tooling.links[0].href);
+  overview('tooling', 'Agent Tooling', P.tooling.title, headH(P.tooling.title, P.tooling.sub), restOf(P.tooling), ['tooling/diagram', 'tooling/readme', 'tooling/stack', 'tooling/github']);
 
   // Earlier agents: one subfolder each
   const AGENT_CODE = { 'Sales Development Workflows': ['sales', 'scan_inbox.py'], 'HIPAA-Guard': ['hipaa', 'scanner.py'], 'Cart Intent Classifier': ['cart', 'engine.py'], 'Growth and Referral Agent': ['growth', 'run_pipeline.py'], 'Competitive Intelligence Agent': ['competitive', 'analyze_competitive_landscape.py'] };
@@ -547,7 +555,7 @@ body.inside .screen { position: fixed; inset: 0; z-index: 100; height: 100vh; mi
   C.contact.forEach((c) => lnk('contact/' + slug(c.label), c.label, c.href));
   folder('contact', 'Contact', 'Contact', C.contact.map((c) => 'contact/' + slug(c.label)), { size: [420, 240] });
 
-  const DESKTOP = ['about', 'work', 'relay', 'cgcnn', 'eeg', 'kinase', 'agents', 'research', 'writing', 'education', 'contact', 'cv'];
+  const DESKTOP = ['about', 'work', 'relay', 'cgcnn', 'eeg', 'kinase', 'tooling', 'agents', 'research', 'writing', 'education', 'contact', 'cv'];
   const icons = document.getElementById('icons');
   const iconHTML = (k, cls) => { const n = NODES[k]; const ext = n.kind === 'link' && !/^mailto:/.test(n.href); return `<a class="${cls}" href="${n.kind === 'link' ? n.href : '#/' + k}" data-key="${k}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${n.icon}<span>${K.esc(n.name)}</span></a>`; };
   icons.innerHTML = DESKTOP.map((k) => iconHTML(k, 'icon')).join('');

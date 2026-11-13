@@ -30,7 +30,7 @@
       { t: T.q, label: 'Question' }, { t: T.deadline, label: 'Deadline' }, { t: T.src[0], label: 'Sources' },
       { t: T.draft, label: 'Draft' }, { t: T.gate, label: 'Approve' }, { t: T.posted, label: 'Posted' }, { t: T.end, label: 'End' }
     ],
-    award: 'Awarded Second Place in the New Slack Agent category of the 2026 Slack Agent Builder Challenge.',
+    award: 'Second Place in the New Slack Agent category of the 2026 Slack Agent Builder Challenge',
     mount(stage, opts) {
       stage.classList.add('film-relay');
       stage.innerHTML = `

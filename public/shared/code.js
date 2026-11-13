@@ -1,4 +1,4 @@
-/* Real code excerpts. GitHub excerpts are pinned to a commit; CGCNN excerpts come from the local practice notebook (not public yet). */
+/* Real code excerpts. GitHub excerpts are pinned to a commit; CGCNN excerpts come from the notebook in slindelow/cgcnn. */
 window.CODE = {
  "relay": {
   "repo": "relay-slack-agent",
@@ -81,25 +81,25 @@ window.CODE = {
   "url": "https://github.com/slindelow/inbound-leads-agent/blob/538a4f2d638abf93f47d11d1a78a68cf3006448a/tools/scan_inbox.py#L88-L177"
  },
  "cgcnn_conv": {
-  "repo": null,
+  "repo": "cgcnn",
   "path": "notebooks/01-cgcnn-practice.ipynb",
-  "sha": null,
+  "sha": "977461e1c92f606945be905e7525498d4bba7165",
   "start": 1,
   "end": 59,
   "total": 59,
   "code": "class GraphConvolution(nn.Module):\n    \n    def __init__(self, node_feat_dim, edge_feat_dim):\n        \"\"\"\n        Convolutional layer for graphs.\n        \n        Parameters\n        ----------\n        node_feat_dim : int\n          Number of node features.\n        edge_feat_dim : int\n          Number of edge features.\n        \"\"\"\n        super().__init__()\n\n        # linear layer used for the gated MLP\n        self.lin1 = nn.Linear(\n            2 * node_feat_dim + edge_feat_dim,\n            2 * node_feat_dim,\n        )\n\n        # normalisation layers\n        self.bn1 = nn.BatchNorm1d(2 * node_feat_dim)\n        self.bn2 = nn.BatchNorm1d(node_feat_dim)\n\n    def forward(self, node_feat, edge_feat, edge_src, edge_dst):\n        \"\"\"Perform the convolution.\n\n        Parameters\n        ----------\n        node_feat : Tensor\n            The node features.\n        edge_feat : Tensor\n            The edge features\n        edge_src : Tensor\n            The indices of the central nodes for the edges.\n        edge_dst : Tensor\n            The indices of the desintation nodes for the edges.\n        \"\"\"\n        # concatenate node and edge features\n        m = torch.cat([node_feat[edge_src], node_feat[edge_dst], edge_feat], dim=1)\n\n        # gated MLP\n        z = self.lin1(m)\n        z = self.bn1(z)\n        z1, z2 = z.chunk(2, dim=1)\n        z1 = nn.Sigmoid()(z1)\n        z2 = nn.Softplus()(z2)\n        z = z1 * z2\n\n        # pool features\n        z = scatter_sum(z, edge_src, dim=0, dim_size=node_feat.shape[0])\n        \n        # pass through normalisation layer\n        return nn.Softplus()(self.bn2(z) + node_feat)\n\n        \n\n",
-  "url": null,
-  "note": "From the practice notebook. Private repository."
+  "url": "https://github.com/slindelow/cgcnn/blob/977461e1c92f606945be905e7525498d4bba7165/notebooks/01-cgcnn-practice.ipynb",
+  "note": "From the CGCNN notebook."
  },
  "cgcnn_model": {
-  "repo": null,
+  "repo": "cgcnn",
   "path": "notebooks/01-cgcnn-practice.ipynb",
-  "sha": null,
+  "sha": "977461e1c92f606945be905e7525498d4bba7165",
   "start": 1,
   "end": 85,
   "total": 85,
   "code": "class CGCNN(nn.Module):\n    def __init__(\n        self,\n        node_feat_dim,\n        edge_feat_dim,\n        node_hidden_dim=64,\n        num_graph_conv_layers=3,\n        num_fully_connected_layers=2,\n        fc_feat_dim=128\n    ):\n        \"\"\"\n        Crystal Graph Convolutional Neural Network \n\n        Parameters\n        ----------\n        node_feat_dim : int\n          Number of initial node features from one-hot encoding.\n        edge_feat_dim : int\n          Number of bond features.\n        node_hidden_dim : int\n          The number of features in the node embedding.\n        num_graph_conv_layers: int\n          Number of convolutional layers.\n        fc_feat_dim: int\n          Number of hidden features after pooling.\n        \"\"\"\n        super().__init__()\n\n        # dense layer to transform one-hot encoded node features to embedding\n        self.embedding = nn.Linear(node_feat_dim, node_hidden_dim)\n\n        # set up the convolutions\n        convs = []\n        for _ in range(num_graph_conv_layers):\n            convs.append(GraphConvolution(node_feat_dim=node_hidden_dim, edge_feat_dim=edge_feat_dim))\n        self.convs = nn.ModuleList(convs)\n\n        # dense layer to turn final node embeddings to the crystal features\n        self.conv_to_fc = nn.Sequential(\n           nn.Linear(node_hidden_dim, fc_feat_dim), nn.Softplus()\n        )\n\n        # dense layer to get the final target value\n        self.fc_out = nn.Linear(fc_feat_dim, 1)\n\n        if num_fully_connected_layers > 0:\n            fc_layers = []\n\n            for _ in range(num_fully_connected_layers):\n                fc_layers.append(nn.Linear(fc_feat_dim, fc_feat_dim))\n                fc_layers.append(nn.Softplus())\n\n            self.fc_layers = nn.Sequential(*fc_layers)\n        else:\n            self.fc_layers = None\n\n    def forward(self, batch):\n        \"\"\"\n        Predict the target property given a batch of data.\n\n        Parameters\n        ----------\n        batch : Batch\n            The data to pass through the network.\n        \"\"\"\n        # get initial node embedding\n        node_feat = self.embedding(batch.node_feat)\n\n        # apply convolutions\n        for conv_func in self.convs:\n            node_feat = conv_func(node_feat, batch.edge_feat, batch.edge_src, batch.edge_dst)\n\n        # pool node vectors\n        crys_feat = scatter_mean(node_feat, batch.batch, dim=0, dim_size=batch.batch.max() + 1)\n\n\n        #\u00a0pass crystal features through final fully-connected layer\n        crys_feat = self.conv_to_fc(crys_feat)\n\n        if self.fc_layers:\n            crys_feat = self.fc_layers(crys_feat)\n\n        return self.fc_out(crys_feat)\n\n",
-  "url": null,
-  "note": "From the practice notebook. Private repository."
+  "url": "https://github.com/slindelow/cgcnn/blob/977461e1c92f606945be905e7525498d4bba7165/notebooks/01-cgcnn-practice.ipynb",
+  "note": "From the CGCNN notebook."
  }
 };
