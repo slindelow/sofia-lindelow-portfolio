@@ -1,10 +1,9 @@
-/* Approved v10 copy, word for word, from drafts/2026-10-25-personal-website-content.md.
-   Site copy, word for word from the approved manuscript. */
+/* Approved v11 copy, word for word, from drafts/2026-11-12-personal-website-content-v11.md. */
 window.CONTENT = {
   profile: {
     name: 'Sofia Lindelow',
     role: 'Forward Deployed AI Engineer · McGill University',
-    statement: 'Forward Deployed AI Engineer and psychology student at McGill, building AI applications and conducting research across health psychology, computational neuroscience and molecular modeling.',
+    statement: 'Forward Deployed AI Engineer and psychology student at McGill, building AI applications and conducting research across health psychology, computational neuroscience and molecular modeling. Builds agent workflows with tests, tracing, evals and human approval.',
     education: 'BSc Psychology, minor in Interdisciplinary Life Sciences · Expected June 2027 · Montreal',
     cv: '/Sofia_Lindelow_CV.pdf'
   },
@@ -13,9 +12,12 @@ window.CONTENT = {
     {
       id: 'fde',
       title: 'Forward Deployed AI Engineer',
-      meta: 'July 2026 to present · Montreal',
+      meta: 'Lake House Group · July 2026 to present · Montreal',
       lede: 'Own assigned AI delivery from workflow discovery and technical scoping through implementation, testing and user handoff.',
       bullets: [
+        'Lead for Telos, Lake House Group\'s AI ecommerce manager for Shopify merchants, since October 2026. Set the beta scope and product specification, sequenced the client rollout, and approve each production release after automated release checks.',
+        'Directed the beta architecture, in which one agent answers for multiple client stores, each isolated by its Slack channel, and questions that name another client are refused before the model runs. The beta answers store questions in Slack for two client stores in an internal pilot.',
+        'Run development through parallel AI coding agents, where each code change passes automated checks and an independent review before merge and failed reviews are rebuilt. Set the first client launch bar at 90% accuracy on 16 core store questions, and count work as done only once it is seen working in production.',
         'Developed Python workflows that translate approved designs into native email drafts through REST APIs. Implemented asset processing, structured manifests, destination-link checks, account validation and saved-output readback; validated draft creation through user testing.',
         'Built and internally validated a Python reporting pipeline that reconciles source data, calculates metrics deterministically and prepares evidence-backed analysis for human review. Added schema, reporting-period and completeness checks so figures remain traceable to their inputs before review.',
         'Developed TypeScript agent and workflow components with Mastra and PostgreSQL-backed execution state. Implemented structured tool contracts, scoped authorization, approval boundaries and recovery checks, including tests for interrupted processes and database restarts, within a pre-release agent runtime.',
@@ -95,12 +97,12 @@ window.CONTENT = {
     {
       id: 'relay',
       title: 'RELAY',
-      sub: 'Slack-native customer-success agent',
+      sub: 'Slack-native customer-success agent · Second Place in the New Slack Agent category of the 2026 Slack Agent Builder Challenge',
       bullets: [
         'Built a customer-support workflow that detects unanswered questions in Slack Connect channels, tracks response deadlines and prepares cited replies for human approval.',
         'Implemented a FastAPI backend with Slack OAuth, event handlers and interactive review controls; used Celery/Redis workers for classification and synchronization, and PostgreSQL/pgvector for question state, embeddings and semantic retrieval.',
         'Connected HubSpot, GitHub and permission-aware Slack search to assemble evidence for drafts. Added an MCP context server, workspace isolation through database row-level security and encrypted connector tokens.',
-        'Validated the core loop end to end in a real Slack Connect workspace, from setup and source synchronization through draft review and approved posting. Awarded Second Place in the New Slack Agent category of the 2026 Slack Agent Builder Challenge.'
+        'Validated the core loop end to end in a real Slack Connect workspace, from setup and source synchronization through draft review and approved posting.'
       ],
       tags: 'Python · FastAPI · Slack Bolt · PostgreSQL/pgvector · SQLAlchemy · Celery/Redis · OAuth · MCP',
       links: [
@@ -120,7 +122,7 @@ window.CONTENT = {
         'Compared convolution depth and embedding size in separate validation sweeps, which favored four convolution layers and 128-dimensional embeddings respectively. Kept these findings separate because the combined configuration had not been tested.'
       ],
       tags: 'Python · PyTorch · Graph neural networks · Tensor operations · Regression · Model evaluation',
-      links: [],
+      links: [{ label: 'Code', href: 'https://github.com/slindelow/cgcnn' }],
       figures: []
     },
     {
@@ -130,7 +132,7 @@ window.CONTENT = {
       bullets: [
         'Defined the research question of whether study-period EEG adds predictive information about later recall beyond behavioral context; directed AI-assisted development of a reproducible analysis pipeline using real PEERS data.',
         'Built the analysis around item-level recall labels, EEG preprocessing and epoching, 128 spectral features, and behavioral, EEG-only and combined logistic-regression models. Required train-only normalization, session-out predictions for the combined model and a held-session evaluation for each participant.',
-        'Locked trial and split manifests and bound outputs to provenance records to make comparisons reproducible. Across 38 participants, the selected EEG representation showed no detectable incremental predictive value beyond the behavioral baseline in this exploratory within-participant analysis.'
+        'Locked trial and split manifests and bound outputs to provenance records to make comparisons reproducible. Across 38 participants, the selected EEG representation showed no detectable incremental predictive value beyond the behavioral baseline in this exploratory within-participant analysis (mean change in AUC -0.0044, 95% participant-bootstrap interval -0.0121 to 0.0033).'
       ],
       tags: 'Python · MNE · NumPy/pandas/SciPy · scikit-learn · Spectral analysis · Logistic regression · Bootstrap evaluation',
       links: [{ label: 'Code and research report', href: 'https://github.com/slindelow/neuroai-eeg-memory' }],
@@ -147,10 +149,22 @@ window.CONTENT = {
       bullets: [
         'Led AI-assisted development of an affinity-prediction and retrospective screening tool using DAVIS and KIBA, requiring frozen source data, saved evaluation splits and metrics generated directly from code.',
         'Compared RDKit fingerprint-only baselines with models adding amino-acid/dipeptide composition or frozen ESM-2 embeddings; evaluated gradient-boosted models and a Chemprop directed message-passing neural network across the original experiments.',
-        'Examined scaffold and protein holdouts, then used MMseqs2 sequence clusters for a stronger DAVIS test. At 40% sequence identity, the composition-feature gradient booster showed no detectable pooled rank-correlation gain over the ligand-only baseline in the primary comparison, qualifying the earlier protein-ID result.'
+        'Examined scaffold and protein holdouts, then used MMseqs2 sequence clusters for a stronger DAVIS test. At 40% sequence identity, adding composition features changed the Spearman correlation by -0.0024 (95% interval -0.0277 to 0.0236) relative to the ligand-only baseline, so the earlier protein-ID gain was not detectable under the stronger test.'
       ],
       tags: 'Python · RDKit · scikit-learn · Chemprop/PyTorch · ESM-2 · MMseqs2 · Reproducible evaluation',
       links: [{ label: 'Code and results', href: 'https://github.com/slindelow/receptor-protein-classification' }],
+      figures: []
+    },
+    {
+      id: 'tooling',
+      title: 'Agent Tooling',
+      sub: 'Tools for running AI coding agents across projects',
+      bullets: [
+        'Built skill-compass, which audits the skills, plugins and MCP servers installed in an agent harness, groups overlapping capabilities by job and generates a routing table, so Claude Code, Codex and Gemini CLI choose tools consistently.',
+        'Built Hemingway Bridge, a skill, tested script and two session hooks that leave each project with a validated next step, owner and open questions at the end of every agent session, so the next session continues without being told what to do.'
+      ],
+      tags: 'Python · Claude Code · Codex · Gemini CLI · Hooks · MCP',
+      links: [{ label: 'skill-compass', href: 'https://github.com/slindelow/skill-compass' }],
       figures: []
     },
     {
@@ -253,7 +267,7 @@ window.CONTENT = {
 
   writing: [
     {
-      title: 'Learning Blog',
+      title: 'Lake House Group Learning Blog',
       items: [
         { label: 'How to Set Up an Agentic Workspace for Ecommerce', href: 'https://lakehousegrp.com/en/learn/how-to-set-up-an-agentic-workspace-for-ecommerce/', date: 'September 2026' },
         { label: 'Browse the learning blog', href: 'https://lakehousegrp.com/en/learn/' }
